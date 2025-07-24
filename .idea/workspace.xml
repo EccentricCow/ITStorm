@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bf175a30-9380-4192-b54a-5b1c9b316b26" name="Changes" comment="added validation for login and registration forms">
+      <change afterPath="$PROJECT_DIR$/frontend/src/environments/environment.prod.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/environments/environment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/responses/default-response.type.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/responses/login-response.type.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/views/user/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/views/user/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/views/user/login/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/views/user/login/login.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SCSS File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/frontend" value="auth-validation" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/frontend" />
+    <option name="RESET_MODE" value="SOFT" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="30EgtzGUYIc4D2nZvf0SgGYnzq6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "js.linters.configure.manually.selectedeslint": "true",
+    "js.linters.configure.manually.selectedtslint": "true",
+    "last_opened_file_path": "C:/Users/derbi/Documents/projects/ITStorm",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "C:\\Users\\derbi\\Documents\\projects\\ITStorm\\frontend\\node_modules\\eslint",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
+    "ts.external.directory.path": "C:\\Users\\derbi\\Documents\\projects\\ITStorm\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src\assets\images\main-page\owl-arrows" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src\assets\images\main-page" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src\assets\styles" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src\assets\images" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src\app\assets\fonts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src\assets\images\main-page\owl-arrows" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src\assets\images\main-page" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\frontend\src" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm" />
+      <recent name="C:\Users\derbi\Documents\projects\ITStorm\backend" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-WS-251.23774.424" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bf175a30-9380-4192-b54a-5b1c9b316b26" name="Changes" comment="" />
+      <created>1753198365653</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1753198365653</updated>
+      <workItem from="1753198366860" duration="3082000" />
+      <workItem from="1753201585813" duration="1465000" />
+      <workItem from="1753247677117" duration="40964000" />
+      <workItem from="1753332000407" duration="1021000" />
+      <workItem from="1753337764677" duration="15577000" />
+    </task>
+    <task id="LOCAL-00001" summary="added login, signup, main pages">
+      <option name="closed" value="true" />
+      <created>1753295055813</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753295055813</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added layout, login, signup, main pages">
+      <option name="closed" value="true" />
+      <created>1753295087493</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1753295087493</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added layout, login, signup, main pages">
+      <option name="closed" value="true" />
+      <created>1753337774723</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1753337774723</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added layout, login, signup, main pages">
+      <option name="closed" value="true" />
+      <created>1753338225352</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1753338225352</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added validation for login and registration forms">
+      <option name="closed" value="true" />
+      <created>1753352121260</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1753352121260</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added validation for login and registration forms">
+      <option name="closed" value="true" />
+      <created>1753352170644</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1753352170644</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added login, signup, main pages" />
+    <MESSAGE value="added layout, login, signup, main pages" />
+    <MESSAGE value="added validation for login and registration forms" />
+    <option name="LAST_COMMIT_MESSAGE" value="added validation for login and registration forms" />
+  </component>
+</project>

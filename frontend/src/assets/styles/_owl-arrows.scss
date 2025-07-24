@@ -1,0 +1,66 @@
+.owl-nav .owl-prev,
+.owl-nav .owl-next {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 15px;
+  height: 28px;
+  position: absolute;
+  top: calc(50% - 14px);
+}
+
+.white-arrows .owl-prev {
+  background-image: url('/assets/images/main-page/owl-arrows/arrow-white.png') !important;
+  transform: rotate(180deg);
+  left: 11px;
+}
+
+.white-arrows .owl-next {
+  background-image: url('/assets/images/main-page/owl-arrows/arrow-white.png') !important;
+  right: 11px;
+}
+
+.blue-arrows .owl-prev {
+  background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png') !important;
+  transform: rotate(180deg);
+  left: -30px;
+}
+
+.blue-arrows .owl-next {
+  background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png') !important;
+  right: -15px;
+}
+
+
+.owl-theme .owl-dots {
+  text-align: center;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 36px);
+  z-index: 10;
+}
+
+.owl-theme .owl-dots .owl-dot {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+  width: 10px;
+  height: 10px;
+  display: block;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.owl-theme .owl-dots .owl-dot.active span {
+  background: white;
+}
+
+
+
+
+

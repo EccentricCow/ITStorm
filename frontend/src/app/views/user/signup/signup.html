@@ -1,0 +1,59 @@
+<div class="signup">
+  <div class="container">
+    <div class="auth-form" [formGroup]="signupForm">
+      <div class="auth-title">Регистрация на сайте</div>
+      <div class="auth-inputs">
+        <div class="input-block auth-input" [class.invalid]="nameInvalid">
+          <input class="input" type="text" placeholder="Ваше имя"
+                 formControlName="name">
+          <span class="error-icon" [matTooltip]="nameErrorMsg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
+            </svg>
+          </span>
+        </div>
+        <div class="input-block auth-input" [class.invalid]="emailInvalid">
+          <input class="input" type="email" placeholder="Электронная почта"
+                 formControlName="email">
+          <span class="error-icon" [matTooltip]="emailErrorMsg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
+            </svg>
+          </span>
+        </div>
+        <div class="input-block auth-input" [class.invalid]="passwordInvalid">
+          <input class="input" type="password" placeholder="Пароль"
+                 formControlName="password">
+          <span class="error-icon" [matTooltip]="passwordErrorMsg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div class="auth-form-extra">
+        <label class="checkbox-wrapper" [class.invalid]="agreeInvalid">
+          <input type="checkbox" id="extra" formControlName="agree">
+          <span class="custom-checkbox"></span>
+          <p>
+            Я принимаю условия <a>пользовательского соглашения</a> и даю <a>согласие на обработку
+            персональных данных</a>.
+          </p>
+        </label>
+        <label for="extra"></label>
+      </div>
+      <div class="auth-form-action">
+        <button (click)="signup()" [disabled]="!signupForm.valid" class="button button-big">Зарегистрироваться</button>
+      </div>
+      <div class="auth-link">
+        Уже есть аккаунт?<a routerLink="/login">Войдите</a>
+      </div>
+    </div>
+    <div class="auth-image">
+      <img ngSrc="assets/images/signup.png" alt="Filling out form" height="390" width="607" priority>
+    </div>
+  </div>
+</div>

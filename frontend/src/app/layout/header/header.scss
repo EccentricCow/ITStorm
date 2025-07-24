@@ -1,0 +1,49 @@
+@import "../../../assets/styles/variables";
+
+.header {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  .container {
+    display: flex;
+    align-items: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    position: relative;
+
+    nav {
+      margin-left: 100px;
+      width: 429px;
+      margin-right: 257px;
+
+      ul {
+        display: flex;
+        gap: 30px;
+      }
+    }
+
+    .header-number {
+      color: $secondary;
+      margin-right: 50px;
+    }
+
+    .header-action {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .header-action-text {
+        margin-left: 7px;
+      }
+
+      &.logged {
+        margin-left: unset;
+        position: absolute;
+        top: 26%;
+        right: -27px;
+      }
+    }
+  }
+}

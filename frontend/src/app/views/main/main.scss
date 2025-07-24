@@ -1,0 +1,356 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+.main {
+  margin-bottom: 120px;
+
+  .container {
+    .main-carousel {
+      position: relative;
+
+      .main-carousel-slide {
+        padding-left: 80px;
+        padding-top: 86px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: right;
+        height: 500px;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+
+        &.first {
+          background-image: url("../../../assets/images/main-page/carousel1.png");
+          padding-top: 100px;
+
+          .button {
+            margin-top: 40px;
+          }
+        }
+
+        &.second {
+          background-image: url("../../../assets/images/main-page/carousel2.png");
+        }
+
+        &.third {
+          background-image: url("../../../assets/images/main-page/carousel3.png");
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 1400px;
+          height: 1400px;
+          border-radius: 50%;
+          background-color: $light;
+          z-index: 2;
+          top: -700px;
+          left: -700px;
+        }
+
+        .main-carousel-slide-subtitle {
+          font-family: Montserrat, sans-serif;
+          font-weight: 600;
+          font-size: 12px;
+          letter-spacing: 4.8px;
+          text-transform: uppercase;
+          color: $secondary;
+          position: relative;
+          z-index: 3;
+        }
+
+        .main-carousel-slide-title {
+          font-family: Lora, sans-serif;
+          font-size: 50px;
+          line-height: 130%;
+          position: relative;
+          z-index: 3;
+          color: #FFFFFF;
+          max-width: 610px;
+
+          span {
+            color: $secondary;
+          }
+        }
+
+        .main-carousel-slide-text {
+          max-width: 456px;
+          margin-top: 20px;
+          font-family: Montserrat, sans-serif;
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 130%;
+          color: #FFFFFF;
+          position: relative;
+          z-index: 3;
+        }
+
+        .button {
+          width: 163px;
+          margin-top: 50px;
+          position: relative;
+          z-index: 3;
+        }
+      }
+    }
+  }
+}
+
+.offers {
+  margin-bottom: 120px;
+
+  .container {
+    .offers-title {
+      @include lora-38;
+      margin-bottom: 40px;
+    }
+
+    .cards {
+      .card {
+        height: 498px;
+
+        .card-title {
+          margin-bottom: 10px;
+        }
+
+        .card-extra {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.about {
+  margin-bottom: 120px;
+
+  .container {
+    display: flex;
+    align-items: start;
+
+    .about-info {
+      margin-left: 68px;
+
+      .about-info-title {
+        @include lora-38;
+        margin-bottom: 20px;
+      }
+
+      .about-info-text {
+        font-family: Montserrat, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 130%;
+        margin-bottom: 40px;
+        max-width: 633px;
+
+        span {
+          font-weight: 500;
+        }
+      }
+
+      .about-info-advantages {
+
+        .about-info-advantages-title {
+          font-family: Lora, sans-serif;
+          font-weight: 400;
+          font-size: 26px;
+          color: $secondary;
+          margin-bottom: 20px;
+        }
+
+        .about-info-advantages-inner {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px 71px;
+
+          .about-inner-advantage {
+            width: 316px;
+            min-width: 316px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-shrink: 0;
+            box-sizing: border-box;
+
+            .about-inner-advantage-number {
+              flex-shrink: 0;
+              background-color: $light;
+              color: $secondary;
+              font-family: Lora, sans-serif;
+              font-weight: 500;
+              font-size: 50px;
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+              position: relative;
+
+              span {
+                position: absolute;
+                top: -18px;
+                left: 8px;
+              }
+            }
+
+            .text-with-bold-beginning {
+              color: #1E1A2B;
+              width: 256px;
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
+
+.articles {
+  margin-bottom: 120px;
+
+  .container {
+    .articles-title {
+      @include lora-38;
+      margin-bottom: 40px;
+    }
+
+    .articles-action {
+      margin-top: 40px;
+      text-align: end;
+      font-family: Montserrat, sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: $secondary;
+    }
+  }
+}
+
+.reviews {
+  margin-bottom: 120px;
+
+  .container {
+    .reviews-title {
+      @include lora-38;
+      margin-bottom: 20px;
+    }
+
+    .reviews-carousel {
+      display: flex;
+      position: relative;
+
+      .reviews-carousel-item {
+        width: 396px;
+        height: 267px;
+        padding: 30px;
+        border: 2px solid $secondary;
+        border-radius: 5px;
+        box-sizing: border-box;
+
+        .reviews-carousel-item-header {
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          margin-bottom: 15px;
+
+          .reviews-carousel-item-name {
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: $secondary;
+          }
+        }
+
+        .reviews-carousel-item-body {
+          font-family: Montserrat, sans-serif;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 140%;
+          color: $primary;
+        }
+      }
+
+      :host ::ng-deep .owl-theme .owl-nav .owl-prev {
+        background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png') !important;
+        transform: rotate(180deg);
+        left: -11px;
+      }
+
+      :host ::ng-deep .owl-theme .owl-nav .owl-next {
+        background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png') !important;
+        right: 11px;
+      }
+      :host ::ng-deep .owl-theme .owl-nav [class*="owl-"] {
+        background-color: transparent !important;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        width: 15px;
+        height: 28px;
+        position: absolute;
+        top: calc(50% - 20px);
+      }
+      //.owl-carousel.owl-theme.owl-loaded.owl-drag .owl-nav .owl-prev {
+      //  background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png');
+      //  transform: rotate(180deg);
+      //  left: -11px;
+      //}
+      //
+      //.owl-nav .owl-next {
+      //  background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png');
+      //  right: 11px;
+      //}
+    }
+  }
+}
+
+.contacts {
+  margin-bottom: 120px;
+
+  .container {
+    display: flex;
+    align-items: flex-start;
+
+    .contacts-map {
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .contacts-info {
+      margin-left: 26px;
+
+      .contacts-info-title {
+        @include lora-38;
+        margin-bottom: 20px;
+      }
+
+      .contacts-info-blocks {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .contacts-info-block {
+          max-width: 501px;
+
+          .contacts-info-block-title {
+            @include montserrat-20;
+            margin-bottom: 10px;
+          }
+
+          .contacts-info-block-text {
+            font-family: Montserrat, sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 130%;
+            color: $primary;
+          }
+
+          .contacts-info-block-socials {
+            display: flex;
+            gap: 20px;
+          }
+        }
+      }
+    }
+  }
+}
