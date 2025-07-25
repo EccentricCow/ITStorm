@@ -1,0 +1,63 @@
+@if (!isOrderSuccessful()) {
+  <h2 mat-dialog-title>{{ isOrder ? 'Заявка на услугу' : 'Закажите бесплатную консультацию!' }}</h2>
+} @else {
+  <h2 class="thanks-title" mat-dialog-title>Спасибо за вашу заявку!</h2>
+}
+<mat-dialog-content>
+  <div *ngIf="!isOrderSuccessful(); else thanks">
+    <div class="default-form" [formGroup]="orderForm">
+      <div class="default-form-inputs">
+        @if (typeOfForm === 'order') {
+          <div class="input-block">
+            <mat-select class="input select-input" formControlName="category" placeholder="Выберите категорию">
+              @for (category of categories(); track category.id) {
+                <mat-option [value]="category.name">{{ category.name }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        }
+
+        <div class="input-block" [class.invalid]="nameInvalid">
+          <input class="input" type="text" placeholder="Ваше имя" formControlName="name">
+          <span class="error-icon" [matTooltip]="nameErrorMsg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
+          </svg>
+        </span>
+        </div>
+        <div class="input-block" [class.invalid]="phoneInvalid">
+          <input class="input" type="tel" placeholder="Ваш номер телефона" formControlName="phone"
+                 prefix="+7 " mask="(000) 000 0000">
+          <span class="error-icon" [matTooltip]="phoneErrorMsg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
+          </svg>
+        </span>
+        </div>
+      </div>
+      <div class="default-form-action">
+        <button [disabled]="!orderForm.valid" (click)="sendRequest()"
+                class="button button-big">{{ isOrder ? 'Оставить заявку' : 'Заказать звонок' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #thanks>
+    <div class="thanks-text">Мы свяжемся с вами при первой же возможности.</div>
+    <button class="button button-small" matButton mat-dialog-close>Окей</button>
+  </ng-template>
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="1.93562" y1="2.64999" x2="13.9564" y2="14.6708" stroke="#BEBEBE" stroke-linecap="round"/>
+      <line x1="13.9236" y1="2.62978" x2="1.90277" y2="14.6506" stroke="#BEBEBE" stroke-linecap="round"/>
+    </svg>
+  </button>
+</mat-dialog-actions>
+

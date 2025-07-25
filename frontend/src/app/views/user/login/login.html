@@ -1,9 +1,9 @@
 <div class="login">
   <div class="container">
-    <div class="auth-form" [formGroup]="loginForm">
-      <div class="auth-title">Войти в личный кабинет</div>
-      <div class="auth-inputs">
-        <div class="input-block auth-input" [class.invalid]="emailInvalid">
+    <div class="default-form" [formGroup]="loginForm">
+      <div class="default-form-title">Войти в личный кабинет</div>
+      <div class="default-form-inputs">
+        <div class="input-block" [class.invalid]="emailInvalid">
           <input class="input" type="email" placeholder="Электронная почта"
                  formControlName="email">
           <span class="error-icon" [matTooltip]="emailErrorMsg">
@@ -13,7 +13,7 @@
             </svg>
           </span>
         </div>
-        <div class="input-block auth-input" [class.invalid]="passwordInvalid">
+        <div class="input-block" [class.invalid]="passwordInvalid">
           <input class="input" type="password" placeholder="Пароль"
                  formControlName="password">
           <span class="error-icon" [matTooltip]="passwordErrorMsg">
@@ -24,21 +24,21 @@
           </span>
         </div>
       </div>
-      <div class="auth-form-extra">
+      <div class="default-form-extra">
         <label class="checkbox-wrapper">
           <input type="checkbox" id="extra" formControlName="rememberMe">
           <span class="custom-checkbox"></span>
           Запомнить меня
         </label>
       </div>
-      <div class="auth-form-action">
+      <div class="default-form-action">
         <button (click)="login()" [disabled]="!loginForm.valid" class="button button-big">Войти</button>
       </div>
       <div class="auth-link">
         Нет аккаунта?<a routerLink="/signup">Пройдите регистрацию</a>
       </div>
     </div>
-    <div class="auth-image">
+    <div class="default-form-image">
       <img ngSrc="assets/images/login.png" alt="Filling out form" height="390" width="607" priority>
     </div>
   </div>

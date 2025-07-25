@@ -6,7 +6,7 @@
           <div class="main-carousel-slide first">
             <div class="main-carousel-slide-subtitle">Предложение месяца</div>
             <div class="main-carousel-slide-title">Продвижение в Instagram для вашего бизнеса <span>-15%</span>!</div>
-            <button class="button button-big">Подробнее</button>
+            <button class="button button-big" matButton (click)="openForm(categoriesName.target)">Подробнее</button>
           </div>
         </ng-template>
         <ng-template carouselSlide>
@@ -14,7 +14,7 @@
             <div class="main-carousel-slide-subtitle">Акция</div>
             <div class="main-carousel-slide-title">Нужен грамотный <span>копирайтер</span>?</div>
             <div class="main-carousel-slide-text">Весь декабрь у нас действует акция на работу копирайтера.</div>
-            <button class="button button-big">Подробнее</button>
+            <button class="button button-big" matButton (click)="openForm(categoriesName.copy)">Подробнее</button>
           </div>
         </ng-template>
         <ng-template carouselSlide>
@@ -22,7 +22,7 @@
             <div class="main-carousel-slide-subtitle">Новость дня</div>
             <div class="main-carousel-slide-title"><span>6 место</span> в ТОП-10 SMM-агенств Москвы!</div>
             <div class="main-carousel-slide-text">Мы благодарим каждого, кто голосовал за нас!</div>
-            <button class="button button-big">Подробнее</button>
+            <button class="button button-big" matButton (click)="openForm(categoriesName.smm)">Подробнее</button>
           </div>
         </ng-template>
       </owl-carousel-o>
@@ -45,7 +45,7 @@
         </div>
         <div class="card-extra">
           <div class="card-extra-price">От 7 500₽</div>
-          <button class="button button-big">Подробнее</button>
+          <button class="button button-big" matButton (click)="openForm(categoriesName.freelance)">Подробнее</button>
         </div>
       </div>
       <div class="card">
@@ -59,7 +59,7 @@
         </div>
         <div class="card-extra">
           <div class="card-extra-price">От 3 500₽</div>
-          <button class="button button-big">Подробнее</button>
+          <button class="button button-big" matButton (click)="openForm(categoriesName.smm)">Подробнее</button>
         </div>
       </div>
       <div class="card">
@@ -73,7 +73,7 @@
         </div>
         <div class="card-extra">
           <div class="card-extra-price">От 1 000₽</div>
-          <button class="button button-big">Подробнее</button>
+          <button class="button button-big" matButton (click)="openForm(categoriesName.target)">Подробнее</button>
         </div>
       </div>
       <div class="card">
@@ -87,7 +87,7 @@
         </div>
         <div class="card-extra">
           <div class="card-extra-price">От 750₽</div>
-          <button class="button button-big">Подробнее</button>
+          <button class="button button-big" matButton (click)="openForm(categoriesName.copy)">Подробнее</button>
         </div>
       </div>
     </div>
@@ -140,80 +140,38 @@
   </div>
 </section>
 
+
 <section class="articles">
   <div class="container">
 
     <div class="articles-title">Популярные статьи из блога</div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-theme">Фриланс</div>
-        <div class="card-image">
-          <img ngSrc="assets/images/main-page/advertising.png" alt="Advertising" height="291" width="291">
-        </div>
-        <div class="card-title">6 сайтов для повышения продуктивности</div>
-        <div class="card-text">Хотите проводить время в сети с пользой? Наша подборка из шести
-          полезных,
-          но малоизвестных сайтов увеличит вашу продуктивность, поможет успевать больше в течение дня и всегда быть на
-          шаг впереди!
-        </div>
-        <div class="card-extra">
-          <a>Читать дальше</a>
-        </div>
+
+    @if (topArticles() && topArticles().length > 0) {
+      <div class="cards">
+        @for (article of topArticles(); track article.id) {
+          <div class="card">
+            <div class="card-category">{{ article.category }}</div>
+            <div class="card-image">
+              <img ngSrc="{{ serverStaticPath + article.image }}" alt="Advertising" height="291" width="291">
+            </div>
+            <div class="card-title">{{ article.title }}</div>
+            <div class="card-text">{{ article.description }}</div>
+            <div class="card-extra">
+              <a routerLink="/articles/{{ article.url }}">Читать дальше</a>
+            </div>
+          </div>
+        }
       </div>
-      <div class="card">
-        <div class="card-theme">Фриланс</div>
-        <div class="card-image">
-          <img ngSrc="assets/images/main-page/advertising.png" alt="Advertising" height="291" width="291">
-        </div>
-        <div class="card-title">6 сайтов для повышения продуктивности</div>
-        <div class="card-text">Хотите проводить время в сети с пользой? Наша подборка из шести
-          полезных,
-          но малоизвестных сайтов увеличит вашу продуктивность, поможет успевать больше в течение дня и всегда быть на
-          шаг впереди!
-        </div>
-        <div class="card-extra">
-          <a>Читать дальше</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-theme">Фриланс</div>
-        <div class="card-image">
-          <img ngSrc="assets/images/main-page/advertising.png" alt="Advertising" height="291" width="291">
-        </div>
-        <div class="card-title">6 сайтов для повышения продуктивности</div>
-        <div class="card-text">Хотите проводить время в сети с пользой? Наша подборка из шести
-          полезных,
-          но малоизвестных сайтов увеличит вашу продуктивность, поможет успевать больше в течение дня и всегда быть на
-          шаг впереди!
-        </div>
-        <div class="card-extra">
-          <a>Читать дальше</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-theme">Фриланс</div>
-        <div class="card-image">
-          <img ngSrc="assets/images/main-page/advertising.png" alt="Advertising" height="291" width="291">
-        </div>
-        <div class="card-title">6 сайтов для повышения продуктивности</div>
-        <div class="card-text">Хотите проводить время в сети с пользой? Наша подборка из шести
-          полезных,
-          но малоизвестных сайтов увеличит вашу продуктивность, поможет успевать больше в течение дня и всегда быть на
-          шаг впереди!
-        </div>
-        <div class="card-extra">
-          <a>Читать дальше</a>
-        </div>
-      </div>
-    </div>
-    <div class="articles-action">
+    }
+
+    <a routerLink="/articles" class="articles-action">
       Перейти в блог
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M5.44392 1C5.59871 1 5.75349 1.05652 5.87569 1.17765L11.1873 6.44254C12.0508 7.29849 12.0508 8.70353 11.1873 9.55948L5.87569 14.8244C5.63944 15.0585 5.2484 15.0585 5.01215 14.8244C4.7759 14.5902 4.7759 14.2026 5.01215 13.9684L10.3238 8.70353C10.7148 8.31593 10.7148 7.68608 10.3238 7.29849L5.01215 2.0336C4.7759 1.79942 4.7759 1.41182 5.01215 1.17765C5.13435 1.0646 5.28914 1 5.44392 1Z"
           fill="#709FDC"/>
       </svg>
-    </div>
+    </a>
   </div>
 </section>
 

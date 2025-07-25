@@ -17,9 +17,11 @@ import {
 } from '@angular/common/http';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {AuthInterceptor} from './core/auth.interceptor';
+import {provideEnvironmentNgxMask} from 'ngx-mask';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideEnvironmentNgxMask(),
     AuthInterceptor,
     provideHttpClient(
       withInterceptors([

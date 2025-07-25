@@ -1,9 +1,9 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {DefaultResponseType} from '../../types/responses/default-response.type';
 import {LoginResponseType} from '../../types/responses/login-response.type';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {UserInfoKeyEnum} from '../../types/user-info-key.enum';
 import {UserType} from '../../types/user.type';
 
@@ -13,7 +13,8 @@ import {UserType} from '../../types/user.type';
 export class AuthService {
   private http = inject(HttpClient);
 
-  userName$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private _userName = signal(localStorage.getItem(UserInfoKeyEnum.name));
+  readonly userName = this._userName.asReadonly();
 
   login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
     return this.http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {
@@ -65,14 +66,12 @@ export class AuthService {
     localStorage.removeItem(UserInfoKeyEnum.accessTokenKey);
     localStorage.removeItem(UserInfoKeyEnum.refreshTokenKey);
     localStorage.removeItem(UserInfoKeyEnum.userIdKey);
-    this.userName = '';
+    localStorage.removeItem(UserInfoKeyEnum.name);
+    this._userName.set('');
   }
 
-  set userName(name: string) {
-    this.userName$.next(name);
-  }
-
-  get userName(): string {
-    return this.userName$.value;
+  setUserName(name: string) {
+    this._userName.set(name);
+    localStorage.setItem(UserInfoKeyEnum.name, name);
   }
 }

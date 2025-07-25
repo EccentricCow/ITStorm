@@ -1,6 +1,11 @@
 @import "../../../assets/styles/variables";
 @import "../../../assets/styles/mixins";
 
+.button.mdc-button.mat-mdc-button-base.mat-mdc-button.mat-unthemed {
+  width: unset;
+  height: unset;
+}
+
 .main {
   margin-bottom: 120px;
 
@@ -189,14 +194,14 @@
 
               span {
                 position: absolute;
-                top: -18px;
+                top: 4px;
                 left: 8px;
               }
             }
 
             .text-with-bold-beginning {
               color: #1E1A2B;
-              width: 256px;
+              width: 250px;
             }
           }
 
@@ -216,6 +221,7 @@
     }
 
     .articles-action {
+      display: block;
       margin-top: 40px;
       text-align: end;
       font-family: Montserrat, sans-serif;
@@ -280,6 +286,7 @@
         background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png') !important;
         right: 11px;
       }
+
       :host ::ng-deep .owl-theme .owl-nav [class*="owl-"] {
         background-color: transparent !important;
         background-repeat: no-repeat;
@@ -290,16 +297,6 @@
         position: absolute;
         top: calc(50% - 20px);
       }
-      //.owl-carousel.owl-theme.owl-loaded.owl-drag .owl-nav .owl-prev {
-      //  background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png');
-      //  transform: rotate(180deg);
-      //  left: -11px;
-      //}
-      //
-      //.owl-nav .owl-next {
-      //  background-image: url('/assets/images/main-page/owl-arrows/arrow-blue.png');
-      //  right: 11px;
-      //}
     }
   }
 }
@@ -354,3 +351,4 @@
     }
   }
 }
+

@@ -1,37 +1,24 @@
 @import "variables";
 
-.auth-form {
+.default-form {
   margin-right: 185px;
   width: 422px;
 
-  .auth-title {
+  .default-form-title {
     font-family: Lora, sans-serif;
     font-size: 36px;
     color: $secondary;
     margin-bottom: 40px;
   }
 
-  .auth-inputs {
+  .default-form-inputs {
     display: flex;
     flex-direction: column;
     gap: 5px;
     margin-bottom: 10px;
   }
 
-  .auth-form-extra {
+  .default-form-extra {
     margin-bottom: 40px;
   }
-
-  .auth-link {
-    margin-top: 10px;
-    font-family: Montserrat, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-
-    a {
-      margin-left: 7px;
-      color: $secondary;
-    }
-  }
-
 }

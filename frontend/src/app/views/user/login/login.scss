@@ -1,3 +1,5 @@
+@import "../../../../assets/styles/variables";
+
 .login {
   padding-top: 106px;
   padding-bottom: 92px;
@@ -5,9 +7,21 @@
   .container {
     display: flex;
 
-    .auth-form {
+    .default-form {
       width: 429px;
       margin-top: 14px;
+
+      .auth-link {
+        margin-top: 10px;
+        font-family: Montserrat, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+
+        a {
+          margin-left: 7px;
+          color: $secondary;
+        }
+      }
     }
   }
 }

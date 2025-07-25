@@ -1,3 +1,5 @@
+@import "../../../../assets/styles/variables";
+
 .signup {
   padding-top: 123px;
   padding-bottom: 120px;
@@ -5,15 +7,27 @@
   .container {
     display: flex;
 
-    .auth-form {
-      .auth-form-extra {
+    .default-form {
+      .auth-link {
+        margin-top: 10px;
+        font-family: Montserrat, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+
+        a {
+          margin-left: 7px;
+          color: $secondary;
+        }
+      }
+
+      .default-form-extra {
         input {
           margin-bottom: 17px;
         }
       }
     }
 
-    .auth-image {
+    .default-form-image {
       margin-top: 3px;
     }
   }

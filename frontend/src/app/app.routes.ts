@@ -8,6 +8,7 @@ export const routes: Routes = [
       {path: '', loadComponent: () => import('./views/main/main').then(m => m.Main)},
       {path: 'signup', loadComponent: () => import('./views/user/signup/signup').then(m => m.Signup)},
       {path: 'login', loadComponent: () => import('./views/user/login/login').then(m => m.Login)},
+      {path: 'articles', loadChildren: () => import('./views/articles/articles.routes').then(m => m.ArticlesRoutes)},
     ]
   }
 ];

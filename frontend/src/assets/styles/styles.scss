@@ -1,10 +1,14 @@
 @import '../../../node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-@import "owl-arrows";
-@import "custom-checkbox";
 @import "fonts";
 @import "variables";
+
+@import "owl-arrows";
+@import "popup-form";
+
+@import "custom-checkbox";
 @import "global";
-@import "auth";
+@import "default-form";
 
 
