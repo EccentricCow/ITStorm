@@ -9,9 +9,9 @@ import {RequestType} from '../../../types/request.type';
   providedIn: 'root'
 })
 export class RequestsService {
-  private http = inject(HttpClient);
+  private readonly _http = inject(HttpClient);
 
-  sendRequest(params: RequestType): Observable<DefaultResponseType> {
-    return this.http.post<DefaultResponseType>(environment.api + 'requests', params);
+  public sendRequest(params: RequestType): Observable<DefaultResponseType> {
+    return this._http.post<DefaultResponseType>(environment.api + 'requests', params);
   }
 }

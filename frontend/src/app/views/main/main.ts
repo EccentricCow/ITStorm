@@ -4,11 +4,11 @@ import {CarouselModule, OwlOptions} from "ngx-owl-carousel-o";
 import {ArticleService} from '../../shared/services/article.service';
 import {ArticleResponseType} from '../../../types/responses/article-response.type';
 import {RouterLink} from '@angular/router';
-import {environment} from '../../../environments/environment';
 import {MatButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {PopupForm} from '../../shared/components/popup-form/popup-form';
 import {CategoriesKeyEnum} from '../../../types/responses/categories-key.enum';
+import {ArticleCard} from '../../shared/components/article-card/article-card';
 
 @Component({
   standalone: true,
@@ -19,20 +19,18 @@ import {CategoriesKeyEnum} from '../../../types/responses/categories-key.enum';
     CommonModule,
     RouterLink,
     MatButton,
+    ArticleCard,
   ],
   templateUrl: './main.html',
   styleUrl: './main.scss',
 })
 export class Main implements OnInit {
-  private articleService = inject(ArticleService);
-  readonly dialog = inject(MatDialog);
+  private readonly _articleService = inject(ArticleService);
+  private readonly _dialog = inject(MatDialog);
 
-  protected categoriesName = CategoriesKeyEnum;
-
-  topArticles = signal<ArticleResponseType[]>([]);
-  protected serverStaticPath = environment.serverStaticPath;
-
-  customOptionsMain: OwlOptions = {
+  protected readonly _categoriesName = CategoriesKeyEnum;
+  protected _topArticles = signal<ArticleResponseType[]>([]);
+  protected readonly _customOptionsMain: OwlOptions = {
     loop: true,
     items: 1,
     dots: true,
@@ -40,7 +38,7 @@ export class Main implements OnInit {
     autoplay: true,
     navText: ['', '']
   };
-  customOptionsReviews: OwlOptions = {
+  protected readonly _customOptionsReviews: OwlOptions = {
     loop: true,
     items: 3,
     dots: false,
@@ -49,17 +47,17 @@ export class Main implements OnInit {
     navText: ['', '']
   };
 
-  ngOnInit(): void {
-    this.articleService.getTopArticles()
+  public ngOnInit(): void {
+    this._articleService.getTopArticles()
       .subscribe({
         next: (data: ArticleResponseType[]) => {
-          this.topArticles.set(data.filter(article => article.title && article.image && article.description && article.url));
+          this._topArticles.set(data.filter(article => article.title && article.image && article.description && article.url));
         }
       })
   }
 
-  openForm(category?: string): void {
-    this.dialog.open(PopupForm, {
+  protected _openForm(category?: string): void {
+    this._dialog.open(PopupForm, {
       panelClass: 'popup-form',
       data: category
     });

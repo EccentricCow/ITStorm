@@ -24,24 +24,24 @@ import {environment} from "../../../../environments/environment";
   styleUrl: './signup.scss'
 })
 export class Signup {
-  private authService = inject(AuthService);
-  private _snackBar = inject(MatSnackBar);
-  private router = inject(Router);
-  private fb = inject(FormBuilder);
+  private readonly _authService = inject(AuthService);
+  private readonly _snackBar = inject(MatSnackBar);
+  private readonly _router = inject(Router);
+  private readonly _fb = inject(FormBuilder);
 
-  protected signupForm = this.fb.group({
+  protected readonly _signupForm = this._fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, emailValidator]],
     password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
     agree: [false, [Validators.requiredTrue]]
-  })
+  });
 
-  signup() {
-    if (this.signupForm.valid && this.signupForm.value.name && this.signupForm.value.email
-      && this.signupForm.value.password && this.signupForm.value.agree) {
-      this.authService.signup(this.signupForm.value.name, this.signupForm.value.email, this.signupForm.value.password)
+  protected _signup(): void {
+    if (this._signupForm.valid && this._signupForm.value.name && this._signupForm.value.email
+      && this._signupForm.value.password && this._signupForm.value.agree) {
+      this._authService.signup(this._signupForm.value.name, this._signupForm.value.email, this._signupForm.value.password)
         .subscribe({
-          next: (data: DefaultResponseType | LoginResponseType) => {
+          next: (data: DefaultResponseType | LoginResponseType): void => {
             let error = '';
             if ((data as DefaultResponseType).error) {
               error = (data as DefaultResponseType).message;
@@ -57,29 +57,29 @@ export class Signup {
               throw new Error(error);
             }
 
-            this.authService.setUserInfo(signupResponse.accessToken, signupResponse.refreshToken, signupResponse.userId);
+            this._authService.setUserInfo(signupResponse.accessToken, signupResponse.refreshToken, signupResponse.userId);
             this._snackBar.open('Вы успешно авторизовались');
-            this.router.navigate(['/']);
+            this._router.navigate(['/']);
 
-            this.authService.getUserInfo()
+            this._authService.getUserInfo()
               .subscribe({
                 next: data => {
                   if ((data as DefaultResponseType).error) {
                     this._snackBar.open('Не удалось получить имя пользователя');
-                    this.authService.setUserName(environment.userDefaultName);
+                    this._authService.setUserName(environment.userDefaultName);
                   }
                   const response = data as UserType;
                   if (response && response.name) {
-                    this.authService.setUserName(response.name);
+                    this._authService.setUserName(response.name);
                   }
                 },
-                error: () => {
+                error: (): void => {
                   this._snackBar.open('Не удалось получить имя пользователя');
-                  this.authService.setUserName(environment.userDefaultName);
+                  this._authService.setUserName(environment.userDefaultName);
                 }
               })
           },
-          error: (errorResponse: HttpErrorResponse) => {
+          error: (errorResponse: HttpErrorResponse): void => {
             if (errorResponse.error && errorResponse.message) {
               this._snackBar.open(errorResponse.error.message);
             } else {
@@ -90,44 +90,44 @@ export class Signup {
     }
   }
 
-  get nameInvalid() {
-    const control = this.signupForm.get('name');
+  protected get _nameInvalid(): boolean | undefined {
+    const control = this._signupForm.get('name');
     return control?.invalid && (control.dirty || control.touched);
   }
 
-  get nameErrorMsg() {
-    const control = this.signupForm.get('name');
+  protected get _nameErrorMsg(): string {
+    const control = this._signupForm.get('name');
     if (control?.errors?.['required']) return 'Имя обязательно';
     if (control?.errors?.['minlength']) return 'Имя должно быть длиннее 2 символов';
     return '';
   }
 
-  get emailInvalid() {
-    const control = this.signupForm.get('email');
+  protected get _emailInvalid(): boolean | undefined {
+    const control = this._signupForm.get('email');
     return control?.invalid && (control.dirty || control.touched);
   }
 
-  get emailErrorMsg() {
-    const control = this.signupForm.get('email');
+  protected get _emailErrorMsg(): string {
+    const control = this._signupForm.get('email');
     if (control?.errors?.['required']) return 'Email обязателен';
     if (control?.errors?.['emailValidator']) return 'Неверный формат email';
     return '';
   }
 
-  get passwordInvalid() {
-    const control = this.signupForm.get('password');
+  protected get _passwordInvalid(): boolean | undefined {
+    const control = this._signupForm.get('password');
     return control?.invalid && (control.dirty || control.touched);
   }
 
-  get passwordErrorMsg() {
-    const control = this.signupForm.get('password');
+  protected get _passwordErrorMsg(): string {
+    const control = this._signupForm.get('password');
     if (control?.errors?.['required']) return 'Пароль обязателен';
     if (control?.errors?.['pattern']) return 'Пароль: минимум 8 символов, заглавная, строчная буква и цифра';
     return '';
   }
 
-  get agreeInvalid() {
-    const control = this.signupForm.get('agree');
+  protected get _agreeInvalid(): boolean | undefined {
+    const control = this._signupForm.get('agree');
     return control?.invalid && (control.dirty || control.touched);
   }
 }

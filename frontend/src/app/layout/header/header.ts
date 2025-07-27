@@ -18,26 +18,26 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrl: './header.scss'
 })
 export class Header {
-  private authService = inject(AuthService);
-  private _snackBar = inject(MatSnackBar);
-  private router = inject(Router);
+  private readonly _authService = inject(AuthService);
+  private readonly _snackBar = inject(MatSnackBar);
+  private readonly _router = inject(Router);
 
-  protected userName = this.authService.userName;
+  protected readonly _userName = this._authService.userName;
 
-  logout(): void {
-    this.authService.logout().subscribe({
-      next: () => {
-        this.doLogout();
+  public logout(): void {
+    this._authService.logout().subscribe({
+      next: (): void => {
+        this._doLogout();
       },
-      error: () => {
-        this.doLogout();
+      error: (): void => {
+        this._doLogout();
       },
     });
   }
 
-  private doLogout(): void {
-    this.authService.removeUserInfo();
+  private _doLogout(): void {
+    this._authService.removeUserInfo();
     this._snackBar.open('Вы успешно вышли из системы');
-    this.router.navigate(['/']);
+    this._router.navigate(['/']);
   }
 }

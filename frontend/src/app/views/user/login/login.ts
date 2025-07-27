@@ -25,22 +25,22 @@ import {environment} from "../../../../environments/environment";
   styleUrl: './login.scss'
 })
 export class Login {
-  private authService = inject(AuthService);
-  private _snackBar = inject(MatSnackBar);
-  private router = inject(Router);
-  private fb = inject(FormBuilder);
+  private readonly _authService = inject(AuthService);
+  private readonly _snackBar = inject(MatSnackBar);
+  private readonly _router = inject(Router);
+  private readonly _fb = inject(FormBuilder);
 
-  protected loginForm = this.fb.group({
+  protected readonly _loginForm = this._fb.group({
     email: ['', [Validators.required, emailValidator]],
     password: ['', Validators.required],
     rememberMe: [false]
-  })
+  });
 
-  login() {
-    if (this.loginForm.valid && this.loginForm.value.email && this.loginForm.value.password) {
-      this.authService.login(this.loginForm.value.email, this.loginForm.value.password, !!this.loginForm.value.rememberMe)
+  protected _login(): void {
+    if (this._loginForm.valid && this._loginForm.value.email && this._loginForm.value.password) {
+      this._authService.login(this._loginForm.value.email, this._loginForm.value.password, !!this._loginForm.value.rememberMe)
         .subscribe({
-          next: (data: DefaultResponseType | LoginResponseType) => {
+          next: (data: DefaultResponseType | LoginResponseType): void => {
             let error = '';
             if ((data as DefaultResponseType).error) {
               error = (data as DefaultResponseType).message;
@@ -56,29 +56,29 @@ export class Login {
               throw new Error(error);
             }
 
-            this.authService.setUserInfo(loginResponse.accessToken, loginResponse.refreshToken, loginResponse.userId);
+            this._authService.setUserInfo(loginResponse.accessToken, loginResponse.refreshToken, loginResponse.userId);
             this._snackBar.open('Вы успешно авторизовались');
-            this.router.navigate(['/']);
+            this._router.navigate(['/']);
 
-            this.authService.getUserInfo()
+            this._authService.getUserInfo()
               .subscribe({
                 next: data => {
                   if ((data as DefaultResponseType).error) {
                     this._snackBar.open('Не удалось получить имя пользователя');
-                    this.authService.setUserName(environment.userDefaultName);
+                    this._authService.setUserName(environment.userDefaultName);
                   }
                   const response = data as UserType;
                   if (response && response.name) {
-                    this.authService.setUserName(response.name);
+                    this._authService.setUserName(response.name);
                   }
                 },
-                error: () => {
+                error: (): void => {
                   this._snackBar.open('Не удалось получить имя пользователя');
-                  this.authService.setUserName(environment.userDefaultName);
+                  this._authService.setUserName(environment.userDefaultName);
                 }
               })
           },
-          error: (errorResponse: HttpErrorResponse) => {
+          error: (errorResponse: HttpErrorResponse): void => {
             if (errorResponse.error && errorResponse.message) {
               this._snackBar.open(errorResponse.error.message);
             } else {
@@ -89,25 +89,25 @@ export class Login {
     }
   }
 
-  get emailInvalid() {
-    const control = this.loginForm.get('email');
+  protected get _emailInvalid(): boolean | undefined {
+    const control = this._loginForm.get('email');
     return control?.invalid && (control.dirty || control.touched);
   }
 
-  get emailErrorMsg() {
-    const control = this.loginForm.get('email');
+  protected get _emailErrorMsg(): string {
+    const control = this._loginForm.get('email');
     if (control?.errors?.['required']) return 'Email обязателен';
     if (control?.errors?.['emailValidator']) return 'Неверный формат email';
     return '';
   }
 
-  get passwordInvalid() {
-    const control = this.loginForm.get('password');
+  protected get _passwordInvalid(): boolean | undefined {
+    const control = this._loginForm.get('password');
     return control?.invalid && (control.dirty || control.touched);
   }
 
-  get passwordErrorMsg() {
-    const control = this.loginForm.get('password');
+  protected get _passwordErrorMsg(): string {
+    const control = this._loginForm.get('password');
     if (control?.errors?.['required']) return 'Пароль обязателен';
     return '';
   }

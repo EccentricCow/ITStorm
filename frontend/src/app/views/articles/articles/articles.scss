@@ -1,0 +1,214 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixins';
+
+.articles {
+  padding-top: 80px;
+  padding-bottom: 120px;
+
+  .container {
+    .articles-title {
+      @include lora-38;
+      margin-bottom: 40px;
+    }
+
+    .articles-filter {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      height: 45px;
+      margin-bottom: 32px;
+
+      .articles-filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        width: 924px;
+        gap: 15px;
+
+        .articles-filter-option {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 20px;
+          box-sizing: border-box;
+          border: 2px solid $secondary;
+          border-radius: 5px;
+
+          .articles-filter-option-name {
+            font-family: Montserrat, sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 130%;
+            color: $secondary;
+          }
+
+          .articles-filter-option-action {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .articles-filter-action {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 148px;
+        position: relative;
+
+        .articles-filter-action-inner {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          box-sizing: border-box;
+
+          .articles-filter-action-text {
+            font-family: Montserrat, sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 130%;
+            color: $primary;
+          }
+        }
+
+        &.opened {
+          width: 257px;
+
+          .articles-filter-action-inner {
+            background-color: $light;
+            padding: 12px 23px;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+
+            .articles-filter-action-svg {
+              transform: rotate(180deg);
+            }
+          }
+
+          .articles-filter-action-options {
+            position: absolute;
+            top: 45px;
+            width: 257px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-sizing: border-box;
+            border: 2px solid $light;
+            padding: 10px 21px;
+            z-index: 2;
+            background-color: #FFFFFF;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+
+            .articles-filter-action-option {
+              display: flex;
+              justify-content: space-between;
+              font-family: Montserrat, sans-serif;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 130%;
+              color: #BEBEBE;
+              cursor: pointer;
+
+              .articles-filter-action-option-action {
+                width: 14px;
+                text-align: center;
+                font-size: 24px;
+              }
+
+              &.selected {
+                color: $primary;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    .cards {
+      flex-wrap: wrap;
+      row-gap: 40px;
+      column-gap: 24px;
+      justify-content: start;
+
+      .cards-empty {
+        .cards-empty-text {
+          @include montserrat-20;
+        }
+      }
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin-top: 60px;
+
+      .pagination-action {
+        all: unset;
+        cursor: pointer;
+
+        .pagination-arrow {
+          display: inline-block;
+          width: 10px;
+          height: 19px;
+          position: relative;
+          top: 3px;
+
+          &.previous {
+            background-image: url("../../../../assets/images/arrow-blue.png");
+            transform: rotate(180deg);
+          }
+
+          &.next {
+            background-image: url("../../../../assets/images/arrow-blue.png");
+          }
+        }
+
+        &:disabled {
+          .pagination-arrow {
+            &.previous {
+              background-image: url("../../../../assets/images/arrow-gray.png");
+              transform: rotate(0deg);
+            }
+
+            &.next {
+              background-image: url("../../../../assets/images/arrow-gray.png");
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+
+      .pagination-pages {
+        margin-left: 40px;
+        margin-right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        span {
+          font-family: Montserrat, sans-serif;
+          font-weight: 400;
+          font-size: 20px;
+          line-height: 130%;
+          width: 32px;
+          height: 46px;
+          display: grid;
+          place-items: center;
+          color: $primary;
+          cursor: pointer;
+
+          &.active {
+            color: $light;
+          }
+        }
+      }
+    }
+  }
+}
+
+

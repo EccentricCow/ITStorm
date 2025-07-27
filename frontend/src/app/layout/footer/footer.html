@@ -1,4 +1,4 @@
-<div class="footer">
+<footer class="footer">
   <div class="container">
 
     <div class="footer-nav">
@@ -22,19 +22,19 @@
       <nav class="nav">
         <ul>
           <li>
-            <a class="nav-link">Услуги</a>
+            <a routerLink="/" fragment="offers" class="nav-link">Услуги</a>
           </li>
           <li>
-            <a class="nav-link">О нас</a>
+            <a routerLink="/" fragment="about-us" class="nav-link">О нас</a>
           </li>
           <li>
-            <a class="nav-link">Статьи</a>
+            <a routerLink="/articles" class="nav-link">Статьи</a>
           </li>
           <li>
-            <a class="nav-link">Отзывы</a>
+            <a routerLink="/" fragment="reviews" class="nav-link">Отзывы</a>
           </li>
           <li>
-            <a class="nav-link">Контакты</a>
+            <a routerLink="/" fragment="contacts" class="nav-link">Контакты</a>
           </li>
         </ul>
       </nav>
@@ -52,7 +52,7 @@
         <div class="footer-info-block-content">
           <a href="tel:+74993431334" class="footer-info-block-content-text">+7 (499) 343-13-34</a>
           <div class="footer-info-block-content-action">
-            <button class="button button-small" matButton (click)="openForm()">Перезвоните мне</button>
+            <button class="button button-small" matButton (click)="_openForm()">Перезвоните мне</button>
           </div>
         </div>
       </div>
@@ -93,4 +93,4 @@
     <div class="footer-rights">© 2022. Все права защищены</div>
 
   </div>
-</div>
+</footer>

@@ -14,10 +14,10 @@ import {PopupForm} from '../../shared/components/popup-form/popup-form';
   styleUrl: './footer.scss'
 })
 export class Footer {
-  readonly dialog = inject(MatDialog);
+  private readonly _dialog = inject(MatDialog);
 
-  openForm() {
-    this.dialog.open(PopupForm, {
+  protected _openForm(): void {
+    this._dialog.open(PopupForm, {
       panelClass: 'popup-form',
     });
   }

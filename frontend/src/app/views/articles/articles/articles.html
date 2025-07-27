@@ -1,1 +1,87 @@
-<p>articles works!</p>
+<section class="articles">
+  <div class="container">
+    <div class="articles-title">Блог</div>
+    <div class="articles-filter">
+      <div class="articles-filter-options">
+        @for (category of _categoriesWithFlag(); track category.id) {
+          @if (category.isInFilter) {
+            <div class="articles-filter-option"
+                 (click)="_applyFilters({type: 'category', value: category.url, isInFilter: category.isInFilter})"
+                 role="button" tabindex="0">
+              <div class="articles-filter-option-name">{{ category.name }}</div>
+              <svg class="articles-filter-option-action" width="16" height="17" viewBox="0 0 16 17" fill="none"
+                   xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_18622_586)">
+                  <line x1="1.93553" y1="3.15002" x2="13.9563" y2="15.1708" stroke="#709FDC" stroke-linecap="round"/>
+                  <line x1="13.9236" y1="3.12984" x2="1.90278" y2="15.1507" stroke="#709FDC" stroke-linecap="round"/>
+                </g>
+                <defs>
+                  <clipPath id="clip0_18622_586">
+                    <rect width="16" height="16" fill="white" transform="translate(0 0.5)"/>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+          }
+        }
+      </div>
+
+      <div #filter class="articles-filter-action" [class.opened]="_isFilterOpened()">
+        <div class="articles-filter-action-inner" (click)="_isFilterOpened.set(!_isFilterOpened())"
+             role="button" tabindex="0">
+          <div class="articles-filter-action-text">Фильтр</div>
+          <svg class="articles-filter-action-svg" width="20" height="21" viewBox="0 0 20 21" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M10 14.5C9.41668 14.5 8.83335 14.275 8.39168 13.8334L2.95835 8.40003C2.71668 8.15837 2.71668 7.75837 2.95835 7.5167C3.20002 7.27503 3.60002 7.27503 3.84168 7.5167L9.27502 12.95C9.67502 13.35 10.325 13.35 10.725 12.95L16.1583 7.5167C16.4 7.27503 16.8 7.27503 17.0417 7.5167C17.2833 7.75837 17.2833 8.15837 17.0417 8.40003L11.6083 13.8334C11.1667 14.275 10.5833 14.5 10 14.5Z"
+              fill="#071739"/>
+          </svg>
+        </div>
+        @if (_isFilterOpened()) {
+          <div class="articles-filter-action-options">
+            @for (category of _categoriesWithFlag(); track category.id) {
+              <div class="articles-filter-action-option" [class.selected]="category.isInFilter"
+                   (click)="_applyFilters({type: 'category', value: category.url, isInFilter: category.isInFilter})"
+                   role="button" tabindex="0">
+                <div class="articles-filter-action-option-name">{{ category.name }}</div>
+                <div class="articles-filter-action-option-action">{{ category.isInFilter ? '-' : '+' }}</div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="cards">
+      @for (article of _articles().items; track article.id) {
+        @if (article.image && article.url && article.description && article.title) {
+          <article-card [article]="article"></article-card>
+        }
+      } @empty {
+        <div class="cards-empty">
+          <div class="cards-empty-text">По данному запросу ничего не найдено</div>
+        </div>
+      }
+    </div>
+    @if (_articles().pages > 1) {
+      <div class="pagination">
+        <button class="pagination-action" [disabled]="_currentPage() === 1"
+                (click)="_applyFilters({type: 'page', value: _currentPage() - 1})">
+          <div class="pagination-arrow previous"></div>
+        </button>
+        <div class="pagination-pages">
+          @for (page of _pages(); track page) {
+            <span (click)="_applyFilters({type: 'page', value: page})" role="button" tabindex="0"
+                  [class.active]="page === _currentPage()">
+              {{ page }}
+            </span>
+          }
+        </div>
+        <button class="pagination-action" [disabled]="_currentPage() === _articles().pages"
+                (click)="_applyFilters({type: 'page', value: _currentPage() + 1})">
+          <div class="pagination-arrow next"></div>
+        </button>
+      </div>
+    }
+  </div>
+</section>

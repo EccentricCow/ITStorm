@@ -17,7 +17,6 @@ import {RequestsService} from '../../services/requests.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DefaultResponseType} from '../../../../types/responses/default-response.type';
-import {NgIf} from '@angular/common';
 import {RequestType} from '../../../../types/request.type';
 
 @Component({
@@ -34,88 +33,86 @@ import {RequestType} from '../../../../types/request.type';
     MatDialogClose,
     NgxMaskDirective,
     MatTooltip,
-    NgIf,
   ],
   templateUrl: './popup-form.html',
   styleUrl: './popup-form.scss',
   providers: [provideNgxMask()],
 })
 export class PopupForm implements OnInit {
-  private articleService = inject(ArticleService);
-  private requestsService = inject(RequestsService);
-  private _snackBar = inject(MatSnackBar);
-  private fb = inject(FormBuilder);
-  private data = inject<string>(MAT_DIALOG_DATA);
-  private userName = inject(AuthService).userName();
+  private readonly _articleService = inject(ArticleService);
+  private readonly _requestsService = inject(RequestsService);
+  private readonly _snackBar = inject(MatSnackBar);
+  private readonly _fb = inject(FormBuilder);
+  private readonly _authService = inject(AuthService);
+  private readonly _data = inject<string>(MAT_DIALOG_DATA);
 
-  protected typeOfForm: 'order' | 'consultation';
-  isOrder = false;
-  orderForm: FormGroup;
+  private readonly _userName = this._authService.userName();
+  protected _typeOfForm: 'order' | 'consultation';
+  protected _isOrder = false;
+  protected readonly _orderForm: FormGroup;
 
-  categories = signal<CategoryResponseType[]>([]);
-  isOrderSuccessful = signal(false);
-  protected selected: string | null = '';
+  protected _categories = signal<CategoryResponseType[]>([]);
+  protected _isOrderSuccessful = signal(false);
+  protected _selectedCategory: string | null = '';
 
   constructor() {
     const controlsConfig: Record<string, any> = {
-      name: [this.userName, [Validators.required, Validators.minLength(2)]],
+      name: [this._userName, [Validators.required, Validators.minLength(2)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-    }
-    if (this.data) {
-      this.typeOfForm = 'order';
-      this.isOrder = true;
-      controlsConfig['category'] = [this.data, [Validators.required]];
+    };
+    if (this._data) {
+      this._typeOfForm = 'order';
+      this._isOrder = true;
+      controlsConfig['category'] = [this._data, [Validators.required]];
     } else {
-      this.typeOfForm = 'consultation';
+      this._typeOfForm = 'consultation';
     }
-    this.orderForm = this.fb.group(controlsConfig)
+    this._orderForm = this._fb.group(controlsConfig);
   }
 
-  ngOnInit() {
-    this.articleService.getCategories()
-      .subscribe((data: CategoryResponseType[]) => {
-        this.categories.set(data);
-
-        if (this.data) {
-          const currentCategory = data.find(category => category.name === this.data);
-
-          if (currentCategory && currentCategory.name && this.orderForm.contains('category')) {
-            this.orderForm.get('category'!)?.setValue(currentCategory.name);
+  public ngOnInit(): void {
+    this._articleService.getCategories()
+      .subscribe((data: CategoryResponseType[]): void => {
+        this._categories.set(data);
+        if (this._data) {
+          const currentCategory = data.find(category => category.name === this._data);
+          if (currentCategory && currentCategory.name && this._orderForm.contains('category')) {
+            this._orderForm.get('category'!)?.setValue(currentCategory.name);
           }
         }
       });
-    if (this.orderForm.contains('category')) {
-      this.orderForm.get('category'!)?.valueChanges
-        .subscribe(value => this.selected = value);
+    if (this._orderForm.contains('category')) {
+      this._orderForm.get('category'!)?.valueChanges
+        .subscribe(value => this._selectedCategory = value);
     }
   }
 
-  sendRequest() {
-    if (this.orderForm.valid && this.orderForm.value.name && this.orderForm.value.phone) {
+  protected _sendRequest(): void {
+    if (this._orderForm.valid && this._orderForm.value.name && this._orderForm.value.phone) {
 
       const params: RequestType = {
-        name: this.orderForm.value.name,
-        phone: '+7' + this.orderForm.value.phone,
-        type: this.typeOfForm,
+        name: this._orderForm.value.name,
+        phone: '+7' + this._orderForm.value.phone,
+        type: this._typeOfForm,
       }
 
-      if (this.isOrder) {
-        if (this.orderForm.value.category) {
-          params.service = this.orderForm.value.category;
+      if (this._isOrder) {
+        if (this._orderForm.value.category) {
+          params.service = this._orderForm.value.category;
         } else {
           this._snackBar.open('Что-то пошло не так :(');
           return;
         }
       }
 
-      this.requestsService.sendRequest(params)
+      this._requestsService.sendRequest(params)
         .subscribe({
           next: (data: DefaultResponseType) => {
             if (data.error) {
               this._snackBar.open(data.message);
               throw new Error(data.message);
             }
-            this.isOrderSuccessful.set(true);
+            this._isOrderSuccessful.set(true);
           },
           error: (errorResponse: HttpErrorResponse) => {
             if (errorResponse.error && errorResponse.message) {
@@ -128,25 +125,25 @@ export class PopupForm implements OnInit {
     }
   }
 
-  get nameInvalid() {
-    const control = this.orderForm.get('name');
+  protected get _nameInvalid(): boolean | undefined {
+    const control = this._orderForm.get('name');
     return control?.invalid && (control.dirty || control.touched);
   }
 
-  get nameErrorMsg() {
-    const control = this.orderForm.get('name');
+  protected get _nameErrorMsg(): string {
+    const control = this._orderForm.get('name');
     if (control?.errors?.['required']) return 'Имя обязательно';
     if (control?.errors?.['minlength']) return 'Имя должно быть длиннее 2 символов';
     return '';
   }
 
-  get phoneInvalid() {
-    const control = this.orderForm.get('phone');
+  protected get _phoneInvalid(): boolean | undefined {
+    const control = this._orderForm.get('phone');
     return control?.invalid && (control.dirty || control.touched);
   }
 
-  get phoneErrorMsg() {
-    const control = this.orderForm.get('phone');
+  protected get _phoneErrorMsg(): string {
+    const control = this._orderForm.get('phone');
     if (control?.errors?.['required']) return 'Номер телефона обязателен';
     if (control?.errors?.['pattern']) return 'Неверный номер телефона';
     return '';

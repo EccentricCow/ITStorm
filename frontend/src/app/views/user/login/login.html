@@ -1,22 +1,22 @@
-<div class="login">
+<section class="login">
   <div class="container">
-    <div class="default-form" [formGroup]="loginForm">
+    <div class="default-form" [formGroup]="_loginForm">
       <div class="default-form-title">Войти в личный кабинет</div>
       <div class="default-form-inputs">
-        <div class="input-block" [class.invalid]="emailInvalid">
+        <div class="input-block" [class.invalid]="_emailInvalid">
           <input class="input" type="email" placeholder="Электронная почта"
                  formControlName="email">
-          <span class="error-icon" [matTooltip]="emailErrorMsg">
+          <span class="error-icon" [matTooltip]="_emailErrorMsg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
             </svg>
           </span>
         </div>
-        <div class="input-block" [class.invalid]="passwordInvalid">
+        <div class="input-block" [class.invalid]="_passwordInvalid">
           <input class="input" type="password" placeholder="Пароль"
                  formControlName="password">
-          <span class="error-icon" [matTooltip]="passwordErrorMsg">
+          <span class="error-icon" [matTooltip]="_passwordErrorMsg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
@@ -32,7 +32,7 @@
         </label>
       </div>
       <div class="default-form-action">
-        <button (click)="login()" [disabled]="!loginForm.valid" class="button button-big">Войти</button>
+        <button (click)="_login()" [disabled]="!_loginForm.valid" class="button button-big">Войти</button>
       </div>
       <div class="auth-link">
         Нет аккаунта?<a routerLink="/signup">Пройдите регистрацию</a>
@@ -42,4 +42,4 @@
       <img ngSrc="assets/images/login.png" alt="Filling out form" height="390" width="607" priority>
     </div>
   </div>
-</div>
+</section>

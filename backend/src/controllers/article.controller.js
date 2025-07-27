@@ -6,6 +6,7 @@ const CommentModel = require("../models/comment.model");
 class ArticleController {
 
     static async getArticles(req, res) {
+        console.log('Query params:', req.query);
         const itemsPerPage = 8;
         const page = parseInt(req.query['page'], 10) || 1;
 

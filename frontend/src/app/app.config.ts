@@ -4,7 +4,10 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection
 } from '@angular/core';
-import {provideRouter} from '@angular/router';
+import {
+  provideRouter, withInMemoryScrolling,
+
+} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideAnimations} from '@angular/platform-browser/animations';
@@ -42,6 +45,12 @@ export const appConfig: ApplicationConfig = {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {duration: 2500}
     },
-    provideRouter(routes)
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        anchorScrolling: "enabled",
+        scrollPositionRestoration: "enabled"
+      })
+    )
   ]
 };

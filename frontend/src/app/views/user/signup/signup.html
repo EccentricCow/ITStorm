@@ -1,32 +1,32 @@
-<div class="signup">
+<section class="signup">
   <div class="container">
-    <div class="default-form" [formGroup]="signupForm">
+    <div class="default-form" [formGroup]="_signupForm">
       <div class="default-form-title">Регистрация на сайте</div>
       <div class="default-form-inputs">
-        <div class="input-block" [class.invalid]="nameInvalid">
+        <div class="input-block" [class.invalid]="_nameInvalid">
           <input class="input" type="text" placeholder="Ваше имя"
                  formControlName="name">
-          <span class="error-icon" [matTooltip]="nameErrorMsg">
+          <span class="error-icon" [matTooltip]="_nameErrorMsg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
             </svg>
           </span>
         </div>
-        <div class="input-block" [class.invalid]="emailInvalid">
+        <div class="input-block" [class.invalid]="_emailInvalid">
           <input class="input" type="email" placeholder="Электронная почта"
                  formControlName="email">
-          <span class="error-icon" [matTooltip]="emailErrorMsg">
+          <span class="error-icon" [matTooltip]="_emailErrorMsg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
             </svg>
           </span>
         </div>
-        <div class="input-block" [class.invalid]="passwordInvalid">
+        <div class="input-block" [class.invalid]="_passwordInvalid">
           <input class="input" type="password" placeholder="Пароль"
                  formControlName="password">
-          <span class="error-icon" [matTooltip]="passwordErrorMsg">
+          <span class="error-icon" [matTooltip]="_passwordErrorMsg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="default-form-extra">
-        <label class="checkbox-wrapper" [class.invalid]="agreeInvalid">
+        <label class="checkbox-wrapper" [class.invalid]="_agreeInvalid">
           <input type="checkbox" id="extra" formControlName="agree">
           <span class="custom-checkbox"></span>
           <p>
@@ -46,7 +46,7 @@
         <label for="extra"></label>
       </div>
       <div class="default-form-action">
-        <button (click)="signup()" [disabled]="!signupForm.valid" class="button button-big">Зарегистрироваться</button>
+        <button (click)="_signup()" [disabled]="!_signupForm.valid" class="button button-big">Зарегистрироваться</button>
       </div>
       <div class="auth-link">
         Уже есть аккаунт?<a routerLink="/login">Войдите</a>
@@ -56,4 +56,4 @@
       <img ngSrc="assets/images/signup.png" alt="Filling out form" height="390" width="607" priority>
     </div>
   </div>
-</div>
+</section>

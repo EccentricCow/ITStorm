@@ -136,6 +136,15 @@ nav {
     flex-direction: column;
     position: relative;
 
+    .card-image {
+      img {
+        width: 291px;
+        height: 291px;
+        object-fit:  cover;
+        border-radius: 5px;
+      }
+    }
+
     .card-category {
       padding: 10px 18px;
       background-color: #FFFFFF;
@@ -154,7 +163,6 @@ nav {
       margin-top: 15px;
       margin-bottom: 20px;
       @include montserrat-20;
-      line-height: 130%;
     }
 
     .card-text {
@@ -163,6 +171,8 @@ nav {
       font-size: 14px;
       line-height: 130%;
       color: $primary;
+      overflow-y: auto;
+      margin-bottom: 14px;
     }
 
     .card-extra {
