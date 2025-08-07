@@ -7,6 +7,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 130%;
+  transition: .3s;
 
   &.invalid {
     color: $danger;
@@ -22,8 +23,13 @@
   }
 
   a {
+    transition: .3s;
     text-decoration: underline;
     color: $secondary;
+
+    &:hover {
+      color: $secondary-hover;
+    }
   }
 }
 

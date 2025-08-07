@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {PopupForm} from '../../shared/components/popup-form/popup-form';
 
 @Component({
+  standalone: true,
   selector: 'footer-component',
   imports: [
     RouterLink,

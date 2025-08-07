@@ -6,31 +6,34 @@
         <div class="input-block" [class.invalid]="_nameInvalid">
           <input class="input" type="text" placeholder="Ваше имя"
                  formControlName="name">
-          <span class="error-icon" [matTooltip]="_nameErrorMsg">
+          <span class="error-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
             </svg>
+            <span [matTooltip]="_nameErrorMsg" class="error-msg"></span>
           </span>
         </div>
         <div class="input-block" [class.invalid]="_emailInvalid">
           <input class="input" type="email" placeholder="Электронная почта"
                  formControlName="email">
-          <span class="error-icon" [matTooltip]="_emailErrorMsg">
+          <span class="error-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
             </svg>
+            <span [matTooltip]="_emailErrorMsg" class="error-msg"></span>
           </span>
         </div>
         <div class="input-block" [class.invalid]="_passwordInvalid">
           <input class="input" type="password" placeholder="Пароль"
                  formControlName="password">
-          <span class="error-icon" [matTooltip]="_passwordErrorMsg">
+          <span class="error-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path
                 d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-376c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM229.3 352a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1 -53.3 0z"/>
             </svg>
+            <span [matTooltip]="_passwordErrorMsg" class="error-msg"></span>
           </span>
         </div>
       </div>
@@ -39,14 +42,16 @@
           <input type="checkbox" id="extra" formControlName="agree">
           <span class="custom-checkbox"></span>
           <p>
-            Я принимаю условия <a>пользовательского соглашения</a> и даю <a>согласие на обработку
-            персональных данных</a>.
+            Я принимаю условия <a role="button" tabindex="0" (click)="_openLegalDialog($event, 'terms-of-use')">пользовательского
+            соглашения</a>
+            и даю <a role="button" tabindex="0" (click)="_openLegalDialog($event, 'data-processing-agreement')">согласие
+            на обработку персональных данных</a>.
           </p>
         </label>
-        <label for="extra"></label>
       </div>
       <div class="default-form-action">
-        <button (click)="_signup()" [disabled]="!_signupForm.valid" class="button button-big">Зарегистрироваться</button>
+        <button (click)="_signup()" [disabled]="!_signupForm.valid" class="button button-big">Зарегистрироваться
+        </button>
       </div>
       <div class="auth-link">
         Уже есть аккаунт?<a routerLink="/login">Войдите</a>

@@ -1,3 +1,5 @@
+import {CommentType} from '../comment.type';
+
 export interface ArticleResponseType {
   id: string,
   title: string,
@@ -6,4 +8,7 @@ export interface ArticleResponseType {
   date: string,
   category: string,
   url: string,
+  comments?: CommentType[],
+  commentsCount?: number,
+  text?: string,
 }

@@ -16,6 +16,7 @@ import {Subscription} from 'rxjs';
 import {FilterType} from '../../../../types/filter.type';
 
 @Component({
+  standalone: true,
   selector: 'app-articles',
   imports: [
     ArticleCard,
@@ -29,14 +30,12 @@ export class Articles implements OnInit, OnDestroy {
   private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _router = inject(Router);
 
-  private _activatedRouteSubscription!: Subscription;
-
   protected _isFilterOpened = signal<boolean>(false);
   private _currentCategories = signal<string[]>([]);
   protected _currentPage = signal<number>(1);
   protected _articles = signal<ArticlesResponseType>({count: 0, pages: 0, items: []});
-  private readonly _categories = signal<CategoryResponseType[]>([]);
-  protected _categoriesWithFlag = computed((): CategoryType[] => {
+  private _categories = signal<CategoryResponseType[]>([]);
+  protected readonly _categoriesWithFlag = computed((): CategoryType[] => {
     return this._categories().map(category => {
       return {
         id: category.id,
@@ -49,6 +48,7 @@ export class Articles implements OnInit, OnDestroy {
   protected _pages = computed((): number[] =>
     Array.from({length: this._articles().pages}, (_, i): number => i + 1)
   )
+  private _activatedRouteSubscription!: Subscription;
 
   @ViewChild('filter')
   private _filterRef!: ElementRef;

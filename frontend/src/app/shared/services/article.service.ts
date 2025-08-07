@@ -27,4 +27,12 @@ export class ArticleService {
   public getCategories(): Observable<CategoryResponseType[]> {
     return this._http.get<CategoryResponseType[]>(environment.api + 'categories');
   }
+
+  public getArticle(url: string): Observable<ArticleResponseType> {
+    return this._http.get<ArticleResponseType>(environment.api + 'articles/' + url);
+  }
+
+  public getRelatedArticles(url: string): Observable<ArticleResponseType[]> {
+    return this._http.get<ArticleResponseType[]>(environment.api + 'articles/related/' + url);
+  }
 }

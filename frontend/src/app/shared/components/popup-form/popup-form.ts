@@ -50,10 +50,8 @@ export class PopupForm implements OnInit {
   protected _typeOfForm: 'order' | 'consultation';
   protected _isOrder = false;
   protected readonly _orderForm: FormGroup;
-
   protected _categories = signal<CategoryResponseType[]>([]);
   protected _isOrderSuccessful = signal(false);
-  protected _selectedCategory: string | null = '';
 
   constructor() {
     const controlsConfig: Record<string, any> = {
@@ -71,19 +69,15 @@ export class PopupForm implements OnInit {
   }
 
   public ngOnInit(): void {
-    this._articleService.getCategories()
-      .subscribe((data: CategoryResponseType[]): void => {
-        this._categories.set(data);
-        if (this._data) {
+    if (this._isOrder) {
+      this._articleService.getCategories()
+        .subscribe((data: CategoryResponseType[]): void => {
+          this._categories.set(data);
           const currentCategory = data.find(category => category.name === this._data);
-          if (currentCategory && currentCategory.name && this._orderForm.contains('category')) {
-            this._orderForm.get('category'!)?.setValue(currentCategory.name);
+          if (currentCategory && currentCategory.name) {
+            this._orderForm.controls['category'].setValue(currentCategory.name);
           }
-        }
-      });
-    if (this._orderForm.contains('category')) {
-      this._orderForm.get('category'!)?.valueChanges
-        .subscribe(value => this._selectedCategory = value);
+        });
     }
   }
 
@@ -107,7 +101,7 @@ export class PopupForm implements OnInit {
 
       this._requestsService.sendRequest(params)
         .subscribe({
-          next: (data: DefaultResponseType) => {
+          next: (data: DefaultResponseType): void => {
             if (data.error) {
               this._snackBar.open(data.message);
               throw new Error(data.message);
@@ -118,7 +112,7 @@ export class PopupForm implements OnInit {
             if (errorResponse.error && errorResponse.message) {
               this._snackBar.open(errorResponse.error.message);
             } else {
-              this._snackBar.open('Ошибка регистрации');
+              this._snackBar.open('Произошла ошибка при отправке формы, попробуйте еще раз');
             }
           }
         });
@@ -126,24 +120,24 @@ export class PopupForm implements OnInit {
   }
 
   protected get _nameInvalid(): boolean | undefined {
-    const control = this._orderForm.get('name');
+    const control = this._orderForm.controls['name'];
     return control?.invalid && (control.dirty || control.touched);
   }
 
   protected get _nameErrorMsg(): string {
-    const control = this._orderForm.get('name');
+    const control = this._orderForm.controls['name'];
     if (control?.errors?.['required']) return 'Имя обязательно';
     if (control?.errors?.['minlength']) return 'Имя должно быть длиннее 2 символов';
     return '';
   }
 
   protected get _phoneInvalid(): boolean | undefined {
-    const control = this._orderForm.get('phone');
+    const control = this._orderForm.controls['phone'];
     return control?.invalid && (control.dirty || control.touched);
   }
 
   protected get _phoneErrorMsg(): string {
-    const control = this._orderForm.get('phone');
+    const control = this._orderForm.controls['phone'];
     if (control?.errors?.['required']) return 'Номер телефона обязателен';
     if (control?.errors?.['pattern']) return 'Неверный номер телефона';
     return '';

@@ -28,8 +28,8 @@ export class Main implements OnInit {
   private readonly _articleService = inject(ArticleService);
   private readonly _dialog = inject(MatDialog);
 
-  protected readonly _categoriesName = CategoriesKeyEnum;
   protected _topArticles = signal<ArticleResponseType[]>([]);
+  protected readonly _categoriesName = CategoriesKeyEnum;
   protected readonly _customOptionsMain: OwlOptions = {
     loop: true,
     items: 1,
@@ -50,10 +50,10 @@ export class Main implements OnInit {
   public ngOnInit(): void {
     this._articleService.getTopArticles()
       .subscribe({
-        next: (data: ArticleResponseType[]) => {
+        next: (data: ArticleResponseType[]): void => {
           this._topArticles.set(data.filter(article => article.title && article.image && article.description && article.url));
         }
-      })
+      });
   }
 
   protected _openForm(category?: string): void {

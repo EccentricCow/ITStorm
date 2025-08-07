@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "frontend": {
+      "i18n": {
+        "sourceLocale": "ru"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -31,6 +34,9 @@
             "styles": [
               "src/styles.scss",
               "src/assets/styles/styles.scss"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
             ]
           },
           "configurations": {
@@ -88,6 +94,10 @@
             "styles": [
               "src/styles.scss",
               "src/assets/styles/styles.scss"
+            ],
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
             ]
           }
         },

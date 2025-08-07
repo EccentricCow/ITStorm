@@ -32,6 +32,7 @@
           box-sizing: border-box;
           border: 2px solid $secondary;
           border-radius: 5px;
+          transition: border-color 0.3s;
 
           .articles-filter-option-name {
             font-family: Montserrat, sans-serif;
@@ -39,10 +40,31 @@
             font-size: 16px;
             line-height: 130%;
             color: $secondary;
+            transition: .3s;
           }
 
-          .articles-filter-option-action {
+          svg {
             cursor: pointer;
+
+            &:focus {
+              outline: none;
+            }
+
+            line {
+              transition: .3s;
+            }
+          }
+
+          &:hover {
+            border-color: $secondary-hover;
+
+            .articles-filter-option-name {
+              color: $secondary-hover;
+            }
+
+            svg line {
+              stroke: $secondary-hover;
+            }
           }
         }
       }
@@ -110,6 +132,7 @@
               line-height: 130%;
               color: #BEBEBE;
               cursor: pointer;
+              transition: color .3s;
 
               .articles-filter-action-option-action {
                 width: 14px;
@@ -118,6 +141,10 @@
               }
 
               &.selected {
+                color: $primary;
+              }
+
+              &:hover {
                 color: $primary;
               }
             }

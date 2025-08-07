@@ -1,0 +1,28 @@
+@import "variables";
+
+.subtitle {
+  font-weight: 500;
+  font-size: 20px;
+  color: $secondary;
+  margin-top: 40px;
+}
+
+.text {
+  margin-top: 20px;
+
+  b {
+    font-weight: 500;
+  }
+}
+
+.list-ul {
+  margin-left: 20px;
+  margin-top: 20px;
+  list-style: circle;
+}
+
+.list-ol {
+  margin-left: 20px;
+  margin-top: 20px;
+  list-style: decimal;
+}

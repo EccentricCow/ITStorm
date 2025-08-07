@@ -17,6 +17,11 @@
         a {
           margin-left: 7px;
           color: $secondary;
+          transition: .3s;
+
+          &:hover {
+            color: $secondary-hover;
+          }
         }
       }
 

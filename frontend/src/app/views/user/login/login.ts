@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatTooltip} from '@angular/material/tooltip';
 import {emailValidator} from "../../../shared/validators/email.validator";
@@ -13,6 +13,7 @@ import {UserType} from "../../../../types/user.type";
 import {environment} from "../../../../environments/environment";
 
 @Component({
+  standalone: true,
   selector: 'app-login',
   imports: [
     NgOptimizedImage,
@@ -28,6 +29,7 @@ export class Login {
   private readonly _authService = inject(AuthService);
   private readonly _snackBar = inject(MatSnackBar);
   private readonly _router = inject(Router);
+  private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _fb = inject(FormBuilder);
 
   protected readonly _loginForm = this._fb.group({
@@ -37,6 +39,7 @@ export class Login {
   });
 
   protected _login(): void {
+    const returnUrl = this._activatedRoute.snapshot.queryParamMap.get('url') || '/';
     if (this._loginForm.valid && this._loginForm.value.email && this._loginForm.value.password) {
       this._authService.login(this._loginForm.value.email, this._loginForm.value.password, !!this._loginForm.value.rememberMe)
         .subscribe({
@@ -58,7 +61,6 @@ export class Login {
 
             this._authService.setUserInfo(loginResponse.accessToken, loginResponse.refreshToken, loginResponse.userId);
             this._snackBar.open('Вы успешно авторизовались');
-            this._router.navigate(['/']);
 
             this._authService.getUserInfo()
               .subscribe({
@@ -71,6 +73,7 @@ export class Login {
                   if (response && response.name) {
                     this._authService.setUserName(response.name);
                   }
+                  this._router.navigate([returnUrl]);
                 },
                 error: (): void => {
                   this._snackBar.open('Не удалось получить имя пользователя');

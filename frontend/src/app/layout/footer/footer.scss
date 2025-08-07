@@ -24,6 +24,10 @@
         ul {
           display: flex;
           gap: 20px;
+
+          li a:hover {
+            color: $secondary;
+          }
         }
       }
     }
@@ -39,6 +43,14 @@
         font-family: Montserrat, sans-serif;
         font-weight: 400;
         font-size: 16px;
+
+        a.footer-info-block-content-text {
+          transition: .3s;
+
+          &:hover {
+            color: $secondary;
+          }
+        }
 
         .footer-info-block-title {
           font-weight: 500;
@@ -86,6 +98,16 @@
           .footer-info-block-content {
             display: flex;
             gap: 12px;
+
+            a svg {
+              path {
+                transition: .3s;
+              }
+
+              &:hover path {
+                fill: $secondary;
+              }
+            }
           }
         }
       }
@@ -97,6 +119,5 @@
       font-size: 16px;
       color: $secondary;
     }
-
   }
 }

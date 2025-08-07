@@ -14,7 +14,10 @@ export class AuthService {
   private readonly _http = inject(HttpClient);
 
   private _userName = signal(localStorage.getItem(UserInfoKeyEnum.name));
-  public userName = computed((): string | null => this._userName());
+  public readonly userName = computed((): string | null => this._userName());
+  private _userId = signal(localStorage.getItem(UserInfoKeyEnum.userIdKey));
+  public readonly userId = computed((): string => this._userId() ?? '');
+  public readonly isLogged = computed((): boolean => !!this.userName() && !!localStorage.getItem(UserInfoKeyEnum.accessTokenKey));
 
   public login(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType | LoginResponseType> {
     return this._http.post<DefaultResponseType | LoginResponseType>(environment.api + 'login', {
@@ -60,6 +63,7 @@ export class AuthService {
     localStorage.setItem(UserInfoKeyEnum.accessTokenKey, accessToken);
     localStorage.setItem(UserInfoKeyEnum.refreshTokenKey, refreshToken);
     localStorage.setItem(UserInfoKeyEnum.userIdKey, userId);
+    this._userId.set(userId);
   }
 
   public removeUserInfo(): void {
@@ -67,10 +71,11 @@ export class AuthService {
     localStorage.removeItem(UserInfoKeyEnum.refreshTokenKey);
     localStorage.removeItem(UserInfoKeyEnum.userIdKey);
     localStorage.removeItem(UserInfoKeyEnum.name);
+    this._userId.set('');
     this._userName.set('');
   }
 
-  public setUserName(name: string) {
+  public setUserName(name: string): void {
     this._userName.set(name);
     localStorage.setItem(UserInfoKeyEnum.name, name);
   }

@@ -221,13 +221,33 @@
     }
 
     .articles-action {
-      display: block;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
       margin-top: 40px;
+      margin-left: auto;
       text-align: end;
       font-family: Montserrat, sans-serif;
       font-weight: 500;
       font-size: 20px;
       color: $secondary;
+      transition: .3s;
+
+      svg {
+        margin-left: 14px;
+
+        path {
+          transition: .3s;
+        }
+      }
+
+      &:hover {
+        color: $secondary-hover;
+
+        svg path {
+          fill: $secondary-hover;
+        }
+      }
     }
   }
 }
@@ -342,9 +362,27 @@
             color: $primary;
           }
 
+          a.contacts-info-block-text {
+            transition: .3s;
+
+            &:hover {
+              color: $secondary
+            }
+          }
+
           .contacts-info-block-socials {
             display: flex;
             gap: 20px;
+
+            a svg {
+              path {
+                transition: .3s;
+              }
+
+              &:hover path {
+                fill: $secondary;
+              }
+            }
           }
         }
       }

@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {MatMenuTrigger} from "@angular/material/menu";
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -7,12 +7,14 @@ import {AuthService} from "../../core/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
+  standalone: true,
   selector: 'header-component',
   imports: [
     RouterLink,
     MatMenuTrigger,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    RouterLinkActive
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss'

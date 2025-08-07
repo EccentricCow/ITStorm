@@ -1,10 +1,12 @@
 <div class="card">
   <div class="card-category">{{ article()!.category }}</div>
   <div class="card-image">
-    <img ngSrc="{{ _serverStaticPath + article()!.image }}" alt="Advertising" height="291" width="291">
+    <img src="{{ _serverStaticPath + article()!.image }}" alt="Advertising" height="291" width="291">
   </div>
   <div class="card-title">{{ article()!.title }}</div>
-  <div class="card-text">{{ article()!.description }}</div>
+  <div class="card-text">
+    <span appFitText [appFitTextContent]="article()!.description"></span>
+  </div>
   <div class="card-extra">
     <a routerLink="/articles/{{ article()!.url }}">Читать дальше</a>
   </div>

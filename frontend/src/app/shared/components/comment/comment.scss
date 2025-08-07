@@ -1,0 +1,115 @@
+@import "../../../../assets/styles/variables";
+
+.comment {
+  width: 854px;
+
+  .comment-header {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+
+    .comment-header-icon {
+      background-color: $light;
+      border: 2px solid $secondary;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      overflow: hidden;
+      margin-right: 26px;
+    }
+
+    .comment-header-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-family: Montserrat, sans-serif;
+      font-weight: 600;
+      line-height: 130%;
+
+      .comment-header-info-username {
+        font-size: 18px;
+        color: $secondary;
+      }
+
+      .comment-header-info-date {
+        font-size: 14px;
+        color: #BEBEBE;
+      }
+    }
+  }
+
+  .comment-content {
+    margin-bottom: 39px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: $primary;
+  }
+
+  .comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .comment-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+
+      svg path {
+        transition: .3s;
+        stroke: $primary;
+      }
+
+      .comment-action-count {
+        font-family: Montserrat, sans-serif;
+        font-weight: 600;
+        color: $primary;
+        line-height: 1;
+        margin-right: 3px;
+        transition: .3s;
+      }
+
+      &.active {
+        .comment-action-count {
+          color: $secondary;
+        }
+
+        svg path {
+          stroke: $secondary;
+        }
+      }
+
+      &:hover {
+        .comment-action-count {
+          color: $secondary-hover;
+        }
+
+        svg path {
+          stroke: $secondary-hover;
+        }
+      }
+    }
+
+    .comment-complaint {
+      cursor: pointer;
+      line-height: 0;
+
+      svg path {
+        transition: .3s;
+      }
+
+      &:hover {
+        svg path {
+          stroke: $secondary-hover;
+        }
+      }
+    }
+  }
+}

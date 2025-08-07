@@ -5,11 +5,11 @@
       <div class="articles-filter-options">
         @for (category of _categoriesWithFlag(); track category.id) {
           @if (category.isInFilter) {
-            <div class="articles-filter-option"
-                 (click)="_applyFilters({type: 'category', value: category.url, isInFilter: category.isInFilter})"
-                 role="button" tabindex="0">
+            <div class="articles-filter-option">
               <div class="articles-filter-option-name">{{ category.name }}</div>
-              <svg class="articles-filter-option-action" width="16" height="17" viewBox="0 0 16 17" fill="none"
+              <svg role="button" tabindex="0"
+                   (click)="_applyFilters({type: 'category', value: category.url, isInFilter: category.isInFilter})"
+                   class="articles-filter-option-action" width="16" height="17" viewBox="0 0 16 17" fill="none"
                    xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_18622_586)">
                   <line x1="1.93553" y1="3.15002" x2="13.9563" y2="15.1708" stroke="#709FDC" stroke-linecap="round"/>

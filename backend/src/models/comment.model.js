@@ -10,6 +10,6 @@ const CommentSchema = new mongoose.Schema({
     article: { type: mongoose.Schema.Types.ObjectId, ref: 'Article', required: true },
 });
 
-const CommentModel = mongoose.model('Comment', CommentSchema);
+const CommentModel = mongoose.model('CommentService', CommentSchema);
 
 module.exports = CommentModel;

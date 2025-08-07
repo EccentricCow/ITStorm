@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatTooltip} from "@angular/material/tooltip";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {emailValidator} from "../../../shared/validators/email.validator";
@@ -11,14 +11,17 @@ import {AuthService} from "../../../core/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserType} from "../../../../types/user.type";
 import {environment} from "../../../../environments/environment";
+import {MatDialog} from '@angular/material/dialog';
+import {LegalPage} from '../../../legal/legal-page/legal-page';
 
 @Component({
+  standalone: true,
   selector: 'app-signup',
   imports: [
     NgOptimizedImage,
     RouterLink,
     MatTooltip,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './signup.html',
   styleUrl: './signup.scss'
@@ -27,16 +30,19 @@ export class Signup {
   private readonly _authService = inject(AuthService);
   private readonly _snackBar = inject(MatSnackBar);
   private readonly _router = inject(Router);
+  private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _fb = inject(FormBuilder);
+  private readonly _dialog = inject(MatDialog);
 
   protected readonly _signupForm = this._fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
+    name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[А-ЯЁ][а-яё]*(?:\s[А-ЯЁ][а-яё]*)*$/)]],
     email: ['', [Validators.required, emailValidator]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
+    password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{8,}$/)]],
     agree: [false, [Validators.requiredTrue]]
   });
 
   protected _signup(): void {
+    const returnUrl = this._activatedRoute.snapshot.queryParamMap.get('url') || '/';
     if (this._signupForm.valid && this._signupForm.value.name && this._signupForm.value.email
       && this._signupForm.value.password && this._signupForm.value.agree) {
       this._authService.signup(this._signupForm.value.name, this._signupForm.value.email, this._signupForm.value.password)
@@ -59,7 +65,6 @@ export class Signup {
 
             this._authService.setUserInfo(signupResponse.accessToken, signupResponse.refreshToken, signupResponse.userId);
             this._snackBar.open('Вы успешно авторизовались');
-            this._router.navigate(['/']);
 
             this._authService.getUserInfo()
               .subscribe({
@@ -72,6 +77,7 @@ export class Signup {
                   if (response && response.name) {
                     this._authService.setUserName(response.name);
                   }
+                  this._router.navigate([returnUrl]);
                 },
                 error: (): void => {
                   this._snackBar.open('Не удалось получить имя пользователя');
@@ -99,6 +105,7 @@ export class Signup {
     const control = this._signupForm.get('name');
     if (control?.errors?.['required']) return 'Имя обязательно';
     if (control?.errors?.['minlength']) return 'Имя должно быть длиннее 2 символов';
+    if (control?.errors?.['pattern']) return 'Только русские буквы, каждое слово с заглавной';
     return '';
   }
 
@@ -122,12 +129,23 @@ export class Signup {
   protected get _passwordErrorMsg(): string {
     const control = this._signupForm.get('password');
     if (control?.errors?.['required']) return 'Пароль обязателен';
-    if (control?.errors?.['pattern']) return 'Пароль: минимум 8 символов, заглавная, строчная буква и цифра';
+    if (control?.errors?.['pattern']) return 'Пароль должен быть от 8 символов, с заглавной буквой и цифрой';
     return '';
   }
 
   protected get _agreeInvalid(): boolean | undefined {
     const control = this._signupForm.get('agree');
     return control?.invalid && (control.dirty || control.touched);
+  }
+
+  protected _openLegalDialog(event: MouseEvent, typeOfLegal: 'terms-of-use' | 'data-processing-agreement'): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this._signupForm.get('agree')?.setValue(false);
+    this._dialog.open(LegalPage, {
+      data: {
+        typeOfLegal: typeOfLegal
+      }
+    });
   }
 }

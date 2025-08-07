@@ -1,14 +1,15 @@
 import {Component, input} from '@angular/core';
 import {ArticleResponseType} from '../../../../types/responses/article-response.type';
 import {environment} from '../../../../environments/environment';
-import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {FitText} from '../../directives/fit-text';
 
 @Component({
+  standalone: true,
   selector: 'article-card',
   imports: [
-    NgOptimizedImage,
-    RouterLink
+    RouterLink,
+    FitText
   ],
   templateUrl: './article-card.html',
   styleUrl: './article-card.scss'

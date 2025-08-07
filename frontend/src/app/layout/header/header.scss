@@ -20,12 +20,27 @@
       ul {
         display: flex;
         gap: 30px;
+
+        li a {
+          &:hover {
+            color: $secondary;
+          }
+
+          &.active {
+            color: $secondary;
+          }
+        }
       }
     }
 
     .header-number {
       color: $secondary;
       margin-right: 50px;
+      transition: .3s;
+
+      &:hover {
+        color: $secondary-hover;
+      }
     }
 
     .header-action {
