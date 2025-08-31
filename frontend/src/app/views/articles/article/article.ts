@@ -18,6 +18,7 @@ import {CommentActionResponseType} from '../../../../types/responses/comment-act
 import {CommentStateUtil} from '../../../shared/utils/comment-state.util';
 import {TextParserUtil} from '../../../shared/utils/text-parser.util';
 import {Loader} from '../../../shared/components/loader/loader';
+import {of, switchMap} from 'rxjs';
 
 @Component({
   standalone: true,
@@ -67,45 +68,55 @@ export class Article implements OnInit {
   protected _url!: string;
 
   public ngOnInit(): void {
-    this._url = this._activatedRoute.snapshot.paramMap.get('id') ?? '';
-    if (!this._url) {
-      this._location.back();
-      return;
-    }
-    this._articleService.getArticle(this._url)
-      .subscribe({
-        next: (article: ArticleResponseType): void => {
-          if (article && article.title && article.description && article.image && article.text && article.id) {
-            this._article.set(article);
-            if (article.comments && article.comments.length > 0 && article.commentsCount) {
-              this._numberOfAllComments.set(article.commentsCount);
-              this._numberOfCommentsToShow.set(article.commentsCount > environment.initialNumberOfComments
-                ? environment.initialNumberOfComments : article.comments.length);
-
-              const commentsSignals = article.comments.map(comment => signal(comment));
-              this._commentsSignals.set(commentsSignals);
-            }
-
-            this._articleService.getRelatedArticles(this._url)
-              .subscribe({
-                next: (articles: ArticleResponseType[]): void => {
-                  if (articles && articles.length > 0) {
-                    this._relatedArticles.set(articles);
-                  }
-                },
-              })
-
-            if (this._isLogged()) {
-              this._getUserActionsForAllComments(article.id);
-            }
+    this._activatedRoute.paramMap
+      .pipe(
+        switchMap(params => {
+          this._url = params.get('id') ?? '';
+          if (!this._url) {
+            this._location.back();
+            return of(null);
           }
+
+          return this._articleService.getArticle(this._url);
+        })
+      )
+      .subscribe({
+        next: article => {
+          if (!article || !article.title || !article.description || !article.image || !article.text || !article.id) {
+            return;
+          }
+
+          this._article.set(article);
+
+          if (article.comments?.length && article.commentsCount) {
+            this._numberOfAllComments.set(article.commentsCount);
+            this._numberOfCommentsToShow.set(
+              Math.min(article.commentsCount, environment.initialNumberOfComments)
+            );
+            this._commentsSignals.set(article.comments.map(comment => signal(comment)));
+          }
+
+          this._getRelatedAndUserActions(article.id);
         },
         error: (errorResponse: HttpErrorResponse): void => {
           this._location.back();
           console.error(errorResponse.message);
           this._snackBar.open('Не удалось загрузить статью');
         }
-      })
+      });
+  }
+
+  private _getRelatedAndUserActions(articleId: string): void {
+    this._articleService.getRelatedArticles(this._url)
+      .subscribe(relatedArticles => {
+        if (relatedArticles && relatedArticles.length > 0) {
+          this._relatedArticles.set(relatedArticles);
+        }
+      });
+
+    if (this._isLogged()) {
+      this._getUserActionsForAllComments(articleId);
+    }
   }
 
   protected _addComment(): void {
@@ -198,7 +209,6 @@ export class Article implements OnInit {
                   .map(comment => signal(comment));
                 this._commentsSignals.set(newCommentsSignals);
               }
-              // this._numberOfCommentsUploaded.set(this._commentsSignals().length);
 
               if (this._isLogged()) {
                 this._getUserActionsForAllComments(this._article().id);

@@ -5,7 +5,7 @@ import {
   provideZonelessChangeDetection
 } from '@angular/core';
 import {
-  provideRouter, withInMemoryScrolling,
+  provideRouter, withInMemoryScrolling, withRouterConfig,
 
 } from '@angular/router';
 
@@ -48,8 +48,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withInMemoryScrolling({
-        anchorScrolling: "enabled",
-        scrollPositionRestoration: "enabled"
+        scrollPositionRestoration: "enabled",
+      }),
+      withRouterConfig({
+        onSameUrlNavigation: 'reload'
       })
     )
   ]

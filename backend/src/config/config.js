@@ -4,7 +4,7 @@ const config = {
     port: 3000,
     db: {
         dbUrl: 'mongodb://127.0.0.1:27017',
-        dbName: 'diploma',
+        dbName: 'ITStorm',
         dbHost: 'localhost',
         dbPort: 27017,
     },

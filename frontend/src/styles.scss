@@ -1,4 +1,3 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -28,5 +27,31 @@ html {
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+app-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  footer-component {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .footer {
+      margin-top: auto;
+    }
+  }
+}
+
+
+

@@ -20,19 +20,19 @@
     <nav class="nav">
       <ul>
         <li>
-          <a routerLink="/" fragment="offers" class="nav-link">Услуги</a>
+          <a class="nav-link" (click)="_navigateToSection('offers')" role="button" tabindex="0">Услуги</a>
         </li>
         <li>
-          <a routerLink="/" fragment="about-us" class="nav-link">О нас</a>
+          <a class="nav-link" (click)="_navigateToSection('about-us')" role="button" tabindex="0">О нас</a>
         </li>
         <li>
           <a routerLink="/articles" routerLinkActive="active" class="nav-link">Статьи</a>
         </li>
         <li>
-          <a routerLink="/" fragment="reviews" class="nav-link">Отзывы</a>
+          <a class="nav-link" (click)="_navigateToSection('reviews')" role="button" tabindex="0">Отзывы</a>
         </li>
         <li>
-          <a routerLink="/" fragment="contacts" class="nav-link">Контакты</a>
+          <a class="nav-link" (click)="_navigateToSection('contacts')" role="button" tabindex="0">Контакты</a>
         </li>
       </ul>
     </nav>

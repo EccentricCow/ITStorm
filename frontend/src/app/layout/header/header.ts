@@ -42,4 +42,8 @@ export class Header {
     this._snackBar.open('Вы успешно вышли из системы');
     this._router.navigate(['/']);
   }
+
+  protected _navigateToSection(sectionId: string): void {
+    this._router.navigate(['/'], {fragment: sectionId});
+  }
 }

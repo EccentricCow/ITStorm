@@ -46,7 +46,11 @@ nav {
   border: none;
   color: #FFFFFF;
   cursor: pointer;
-  transition: 0.3s;
+  transition: .3s;
+
+  &:hover {
+    background-color: #4a7bbd;
+  }
 
   &.button-small {
     width: 153px;
@@ -259,6 +263,3 @@ nav {
     }
   }
 }
-
-
-
