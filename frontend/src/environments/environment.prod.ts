@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  api: 'https://itstorm-r5b2.onrender.com/',
+  api: 'https://itstorm-r5b2.onrender.com/api/',
   userDefaultName: 'Пользователь',
   serverStaticPath: 'https://itstorm-r5b2.onrender.com/images/',
   initialNumberOfComments: 3,
