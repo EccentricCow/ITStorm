@@ -1,50 +1,49 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-const config = require('../../config/config');
 
 class MongoDBConnection {
     static isConnected = false;
     static db;
 
-    static getConnection(result) {
-        if (this.isConnected) {
-            return result(null, this.db);
-        } else {
-            return this.connect(result);
-        }
+    static async getConnection() {
+        if (this.isConnected) return this.db;
+        return await this.connect();
     }
 
-    static connect(result) {
-         mongoose.connect(config.db.dbUrl, {
-            dbName: config.db.dbName,
-            useNewUrlParser: true,
-        }).then();
-        const db = mongoose.connection;
+    static async connect() {
+        const mongoUri = process.env.MONGO_URI;
+        const dbName = process.env.DB_NAME;
 
-        db.once('open', () => {
-            console.log('MongoDB connection opened!');
+        if (!mongoUri || !dbName) {
+            throw new Error('MONGO_URI or DB_NAME is not set in environment variables');
+        }
+
+        try {
+            await mongoose.connect(mongoUri, {
+                dbName,
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            });
+
             this.db = mongoose;
             this.isConnected = true;
-            return result(null, this.db);
-        });
-        db.on('connecting', () => {
-            console.log('connecting to MongoDB...');
-        });
-        db.on('error', (error) => {
-            console.log('Error in MongoDb connection: ' + error);
-            mongoose.disconnect().then().catch();
-        });
-        db.on('connected', () => {
-            console.log('MongoDB connected!');
-        });
-        db.on('reconnected', () => {
-            console.log('MongoDB reconnected!');
-        });
+            console.log('MongoDB connection opened!');
+        } catch (error) {
+            console.error('Error connecting to MongoDB:', error);
+            throw error;
+        }
+
+        const db = mongoose.connection;
+        db.on('connecting', () => console.log('Connecting to MongoDB...'));
+        db.on('connected', () => console.log('MongoDB connected!'));
+        db.on('reconnected', () => console.log('MongoDB reconnected!'));
         db.on('disconnected', () => {
-            console.log('MongoDB disconnected!');
-            setTimeout(() => MongoDBConnection.connect(() => {
-                // after connect callback
-            }), 5000);
+            console.log('MongoDB disconnected! Retrying in 5 seconds...');
+            setTimeout(() => this.connect().catch(() => {}), 5000);
         });
+        db.on('error', (err) => console.error('MongoDB connection error:', err));
+
+        return this.db;
     }
 }
 

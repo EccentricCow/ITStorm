@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:3000/api/',
+  api: 'https://itstorm-r5b2.onrender.com/',
   userDefaultName: 'Пользователь',
-  serverStaticPath: 'http://localhost:3000/images/',
+  serverStaticPath: 'https://itstorm-r5b2.onrender.com/images/',
   initialNumberOfComments: 3,
   numberOfCommentsToDefaultLoad: 10,
 }
