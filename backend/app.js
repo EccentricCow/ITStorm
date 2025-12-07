@@ -14,64 +14,64 @@ const UserModel = require("./src/models/user.model");
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(cors());
+
+passport.use(new JwtStrategy({
+    jwtFromRequest: ExtractJwt.fromHeader('x-auth'),
+    secretOrKey: config.secret,
+    algorithms: ["HS256"],
+}, async (payload, next) => {
+
+    if (!payload.id) {
+        return next(new Error('Не валидный токен'));
+    }
+
+    let user = null;
+    try {
+        user = await UserModel.findOne({_id: payload.id});
+    } catch (e) {
+        console.log(e);
+    }
+
+    if (user) {
+        if (!user.refreshToken) {
+            return next(new Error('Ошибка авторизации'));
+        }
+        return next(null, payload);
+    }
+
+    next(new Error('Пользователь не найден'));
+}));
+
+app.use(passport.initialize());
+
+app.use("/api", authRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/articles", articleRoutes);
+app.use("/api/requests", requestRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/users", userRoutes);
+
+app.use(function (req, res, next) {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+app.use(function (err, req, res, next) {
+    res.status(err.statusCode || err.status || 500).send({error: true, message: err.message});
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
 MongoDBConnection.getConnection((error, connection) => {
     if (error || !connection) {
         console.log('Db connection error', error);
-        return;
     }
-    const app = express();
-
-    app.use(express.static(path.join(__dirname, 'public')));
-    app.use(express.json());
-    app.use(cors());
-
-    passport.use(new JwtStrategy({
-        jwtFromRequest: ExtractJwt.fromHeader('x-auth'),
-        secretOrKey: config.secret,
-        algorithms: ["HS256"],
-    }, async (payload, next) => {
-
-        if (!payload.id) {
-            return next(new Error('Не валидный токен'));
-        }
-
-        let user = null;
-        try {
-            user = await UserModel.findOne({_id: payload.id});
-        } catch (e) {
-            console.log(e);
-        }
-
-        if (user) {
-            if (!user.refreshToken) {
-                return next(new Error('Ошибка авторизации'));
-            }
-            return next(null, payload);
-        }
-
-        next(new Error('Пользователь не найден'));
-    }));
-
-    app.use(passport.initialize());
-
-    app.use("/api", authRoutes);
-    app.use("/api/categories", categoryRoutes);
-    app.use("/api/articles", articleRoutes);
-    app.use("/api/requests", requestRoutes);
-    app.use("/api/comments", commentRoutes);
-    app.use("/api/users", userRoutes);
-
-    app.use(function (req, res, next) {
-        const err = new Error('Not Found');
-        err.status = 404;
-        next(err);
-    });
-
-    app.use(function (err, req, res, next) {
-        res.status(err.statusCode || err.status || 500).send({error: true, message: err.message});
-    });
-
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 })
 
