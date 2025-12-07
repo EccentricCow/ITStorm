@@ -71,8 +71,7 @@ MongoDBConnection.getConnection((error, connection) => {
         res.status(err.statusCode || err.status || 500).send({error: true, message: err.message});
     });
 
-    app.listen(config.port, () =>
-        console.log(`Server started`)
-    );
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 })
 

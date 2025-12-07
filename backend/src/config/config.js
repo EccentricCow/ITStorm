@@ -1,7 +1,6 @@
 const config = {
     secret: process.env.SECRET || 'local_secret',
     env: process.env.ENV || 'development',
-    port: process.env.PORT || 3000,
     db: {
         dbUrl: process.env.MONGO_URI || 'mongodb://127.0.0.1:27017',
         dbName: process.env.DB_NAME || 'ITStorm',
