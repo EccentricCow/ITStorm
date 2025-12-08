@@ -53,15 +53,22 @@
     </div>
 
     <div class="cards">
-      @for (article of _articles().items; track article.id) {
-        @if (article.image && article.url && article.description && article.title) {
-          <article-card [article]="article"></article-card>
-        }
-      } @empty {
+      @if (_isLoading()) {
         <div class="cards-empty">
-          <div class="cards-empty-text">По данному запросу ничего не найдено</div>
+          <div class="cards-empty-text">Загрузка...</div>
         </div>
+      } @else {
+        @for (article of _articles().items; track article.id) {
+          @if (article.image && article.url && article.description && article.title) {
+            <article-card [article]="article"></article-card>
+          }
+        } @empty {
+          <div class="cards-empty">
+            <div class="cards-empty-text">По данному запросу ничего не найдено</div>
+          </div>
+        }
       }
+
     </div>
     @if (_articles().pages > 1) {
       <div class="pagination">

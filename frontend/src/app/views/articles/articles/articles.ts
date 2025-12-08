@@ -12,7 +12,7 @@ import {ArticlesResponseType} from '../../../../types/responses/articles-respons
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryResponseType} from '../../../../types/responses/category-response.type';
 import {CategoryType} from '../../../../types/category.type';
-import {Subscription} from 'rxjs';
+import {finalize, Subscription} from 'rxjs';
 import {FilterType} from '../../../../types/filter.type';
 
 @Component({
@@ -33,6 +33,7 @@ export class Articles implements OnInit, OnDestroy {
   protected _isFilterOpened = signal<boolean>(false);
   private _currentCategories = signal<string[]>([]);
   protected _currentPage = signal<number>(1);
+  protected _isLoading = signal<boolean>(true);
   protected _articles = signal<ArticlesResponseType>({count: 0, pages: 0, items: []});
   private _categories = signal<CategoryResponseType[]>([]);
   protected readonly _categoriesWithFlag = computed((): CategoryType[] => {
@@ -80,7 +81,10 @@ export class Articles implements OnInit, OnDestroy {
           this._currentCategories.set([]);
         }
 
+        this._isLoading.set(true);
+
         this._articleService.getArticles(this._currentPage(), this._currentCategories())
+          .pipe(finalize((): void => this._isLoading.set(false)))
           .subscribe({
             next: articleResponse => {
               if (articleResponse) {
